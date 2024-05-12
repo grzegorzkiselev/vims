@@ -1,4 +1,4 @@
-import { Disposable, ExtensionContext, commands, window } from "vscode";
+import { Disposable, ExtensionContext, commands, window, workspace } from "vscode";
 import { ActionFind } from "./Actions/Find";
 import { ActionMode } from "./Actions/Mode";
 import { ActionMoveCursor } from "./Actions/MoveCursor";
@@ -87,7 +87,6 @@ export class Dispatcher {
 
     this.disposables.push(
       window.onDidChangeTextEditorSelection(() => {
-
         // Ensure this is executed after all pending commands.
         setTimeout(async () => {
           await ActionMode.switchByActiveSelections(this._currentMode.id);
@@ -104,6 +103,9 @@ export class Dispatcher {
         }
         ActionMoveCursor.updatePreferredColumn();
       }),
+      workspace.onDidChangeConfiguration(() => {
+        this._currentMode.quickPick.revalidateConfig();
+      }),
     );
 
     commands.executeCommand("setContext", "vims.isLoaded", true);
@@ -111,7 +113,7 @@ export class Dispatcher {
 
   private inputHandler(key: string, args: {} = {}): () => void {
     return () => {
-      this._currentMode.input(key, args);
+      this._currentMode.input(key);
     };
   }
 

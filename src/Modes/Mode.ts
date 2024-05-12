@@ -1,9 +1,10 @@
-import { Disposable, QuickPick, QuickPickItem, commands, window } from "vscode";
-import { Configuration } from "../Configuration";
+import { commands } from "vscode";
 import { StaticReflect } from "../LanguageExtensions/StaticReflect";
 import { CommandMap, CommandMapper } from "../Mappers/Command";
 import { MatchResultKind } from "../Mappers/Generic";
 import { SymbolMetadata } from "../Symbols/Metadata";
+import { SuggestionsList } from "../UI/QuickPick";
+import { StatusBar } from "../UI/StatusBar";
 
 export enum ModeID {
   NORMAL,
@@ -20,44 +21,24 @@ export abstract class Mode {
   private pendings: CommandMap[] = [];
   private executing: boolean = false;
   private inputs: string[] = [];
-
   protected mapper: CommandMapper = new CommandMapper();
-
-  protected qp = (
-    Configuration.useQuickPick
-      ? window.createQuickPick() as QuickPick<QuickPickItem> & { isOpen: boolean, currentListener: Disposable }
-      : null as never
-  );
-  protected suggestions: { keys: string, details: string }[] = [];
+  public quickPick = new SuggestionsList();
 
   enter(): void {
     this.updateStatusBar();
-    // this.qp.onDidChangeValue(this.updateQuickPick);
 
-    if (this.qp) {
-      this.qp.isOpen = false;
-      this.qp.title = "VimS";
-      this.qp.ignoreFocusOut = true;
-      this.qp.onDidHide(this.hideQuickPick);
-      this.qp.items = this.suggestions.map(({ keys, details }) => {
-        return {
-          label: keys.replace(/\s+/g, ""),
-          detail: details
-        };
-      });
-    }
+    this.quickPick.revalidateConfig();
   }
 
-  private updateStatusBar(message?: string): void {
+  updateStatusBar = (message?: string) => {
     let status = `-- ${this.name} --`;
 
     if (message) {
       status += ` ${message}`;
     }
 
-    window.setStatusBarMessage(status);
-  }
-
+    StatusBar.updateStatusBar(status);
+  };
   exit(): void {
     this.clearInputs();
     this.clearPendings();
@@ -76,78 +57,13 @@ export abstract class Mode {
     this.pendings = [];
   }
 
-  showQuickPick = (value) => {
-    this.qp.isOpen = true;
-    this.qp.show();
-    this.qp.value = value;
-    this.qp.currentListener = this.qp.onDidChangeValue(this.updateQuickPick);
-    // this.qp.items = this.suggestions.map(({ keys, details }) => {
-    //   return {
-    //     label: keys.replace(/\s+/g, ""),
-    //     detail: details
-    //   };
-    // });
-  };
-
-  hideQuickPick = () => {
-    this.qp.isOpen = false;
-    this.qp.currentListener?.dispose();
-    this.qp.value = "";
-    this.qp.hide();
-    this.reduceInput({ kind: 0, map: null });
-  };
-
-  updateQuickPickItems = (pattern: RegExp | string = "", replacement = "") => {
-    this.qp.items = this.suggestions.map(({ keys, details }) => {
-      return {
-        label: keys.replace(pattern, replacement).replace(/\s+/g, ""),
-        detail: details
-      };
-    });
-  };
-
-  updateQuickPick = () => {
-    const isDigit = new RegExp("(\\d+)");
-    const matches = this.qp.value.match(isDigit);
-    const numberId = "{N}";
-
-    if (matches != null && matches?.length > 0) {
-      this.updateQuickPickItems(numberId, matches[0]);
-    } else {
-      this.updateQuickPickItems(isDigit, numberId);
-    }
-
-    this.inputs = [...this.qp.value];
-
-    const { kind, map } = this.mapper.match(this.inputs);
-    this.reduceInput({ kind, map });
-  };
-
-  // extractField = (node, property): unknown => {
-  //   const condition = typeof node[property] !== "undefined" || node == null;
-
-  //   if (condition) {
-  //     return Array.isArray(node[property]) ? node[property] : [node[property]];
-  //   }
-
-  //   return Object.values(node).map((node) => {
-  //     if (!condition) {
-  //       return this.extractField(node, property);
-  //     }
-  //     return node[property];
-  //   });
-  // };
-
   reduceInput = ({ kind, map }) => {
     if (kind === MatchResultKind.FAILED) {
-      if (this.qp && this.qp.isOpen) {
-        this.hideQuickPick();
-      }
       this.updateStatusBar();
       this.clearInputs();
     } else if (kind === MatchResultKind.FOUND) {
-      if (this.qp && this.qp.isOpen) {
-        this.hideQuickPick();
+      if (this.quickPick.enabled && this.quickPick.isOpen) {
+        this.quickPick.hideQuickPick();
       }
       this.updateStatusBar();
       this.clearInputs();
@@ -157,13 +73,13 @@ export abstract class Mode {
       this.updateStatusBar(`${this.inputs.join(" ")} and...`);
       commands.executeCommand("setContext", "vims.waitingForInput", true);
 
-      if (this.qp && !this.qp.isOpen) {
-        this.showQuickPick(this.inputs[0]);
+      if (this.quickPick.enabled && !this.quickPick.isOpen) {
+        this.quickPick.showQuickPick();
       }
     }
   };
 
-  input(key: string, args: {} = {}): MatchResultKind {
+  input(key: string): MatchResultKind {
     let inputs: string[];
 
     if (key === "escape") {
@@ -177,69 +93,12 @@ export abstract class Mode {
 
     this.reduceInput({ kind, map });
 
+    if (this.quickPick.isOpen) {
+      this.quickPick.updateQuickPick(this.inputs.join(""));
+    }
+
     return kind;
   }
-
-  // quickPickInput = () => {
-  //   const expandedKeys = Object.values(this.mapper.specialKeys).reduce((resultArray, specialKey) => {
-  //     const accessor = node[specialKey.indicator];
-  //     const safeindicator = specialKey.indicator.replace(/({|})/g, "\\$1");
-
-  //     if (accessor) {
-  //       let inputStringArray = this.extractField(accessor, "keys");
-  //       if (!Array.isArray(inputStringArray)) {
-  //         inputStringArray = [inputStringArray];
-  //       }
-
-  //       inputStringArray.forEach((inputString) => {
-  //         let workingString = inputString;
-  //         const isDigit = new RegExp("(\\d+)");
-  //         const matches = this.qp.value.match(isDigit);
-
-  //         if (matches != null && matches?.length > 0) {
-  //           workingString = workingString.replace("{N}", matches[0]);
-  //         }
-
-  //         if (specialKey.maps?.length > 0) {
-  //           const reg = new RegExp(safeindicator);
-
-  //           resultArray.push(...specialKey.maps.map(({ keys }) => {
-  //             return workingString.replace(reg, keys);
-  //           }));
-  //         } else {
-  //           resultArray.push(workingString);
-  //         }
-  //       });
-
-  //       // else {
-  //       //   const isDigit = new RegExp("(\\d+)");
-  //       //   const matches = this.qp.value.match(isDigit);
-  //       //   console.log(matches);
-  //       //   if (matches != null && matches?.length > 0) {
-  //       //     inputString = inputString.replace("{N}", matches[0]);
-  //       //   }
-
-  //       // if (specialKey.maps?.length > 0) {
-  //       //   const reg = new RegExp(safeindicator);
-
-  //       //   resultArray.push(...specialKey.maps.map(({ keys }) => {
-  //       //     return inputString.replace(reg, keys);
-  //       //   }));
-  //       // }
-  //       // else {
-  //       // resultArray.push(inputString);
-  //       // }
-  //     }
-  //     // }
-  //     return resultArray;
-  //   }, []);
-
-  //   console.log(expandedKeys);
-
-  //   this.qp.items = expandedKeys.flat().map((key) => {
-  //     return { label: key.replace(/\s+/, "") };
-  //   });
-  // };
 
   protected pushCommandMap(map: CommandMap): void {
     this.pendings.push(map);
@@ -271,6 +130,24 @@ export abstract class Mode {
 * Override this to do something after recording ends.
 */
   onDidRecordFinish(recordedCommandMaps: CommandMap[], lastModeID: ModeID): void { }
+
+
+  // if (regTextObj.test(map.keys)) {
+  //   this.mapper.specialKeys[2].suggestions?.forEach((chunk) => {
+  //     this.quickPick.suggestions.push(
+  //       { keys: map.keys.replace(regTextObj, chunk), details: map.details || "empty" }
+  //     );
+  //   });
+  // }
+  // const regMotion = new RegExp("\{motion\}");
+  // if (regMotion.test(map.keys)) {
+  //   this.mapper.specialKeys[1].suggestions?.forEach((chunk) => {
+  //     this.quickPick.suggestions.push(
+  //       { keys: map.keys.replace(regMotion, chunk), details: map.details || "empty" }
+  //     );
+  //   });
+  // }
+  // };
 
   protected execute(): void {
     if (this.executing) {

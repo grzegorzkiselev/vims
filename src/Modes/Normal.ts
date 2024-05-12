@@ -22,6 +22,7 @@ import { ActionSelection } from "../Actions/Selection";
 import { Configuration } from "../Configuration";
 import { StaticReflect } from "../LanguageExtensions/StaticReflect";
 import { CommandMap } from "../Mappers/Command";
+import { SpecialKeyCommon } from "../Mappers/SpecialKeys/Common";
 import { MotionCharacter } from "../Motions/Character";
 import { MotionLine } from "../Motions/Line";
 import { SymbolMetadata } from "../Symbols/Metadata";
@@ -389,22 +390,22 @@ export class ModeNormal extends Mode {
 
     this.maps.forEach((map) => {
       this.mapper.map(map.keys, map.actions, map.args);
-      // this.suggestions.push({ keys: map.keys });
 
-      const regTextObj = new RegExp("\{textObject\}");
-      if (regTextObj.test(map.keys)) {
-        this.mapper.specialKeys[2].suggestions?.forEach((chunk) => {
-          this.suggestions.push(
-            { keys: map.keys.replace(regTextObj, chunk), details: map.details || "empty" }
-          );
-        });
+      if (this.quickPick) {
+        this.generateSuggestions(map);
       }
-      const regMotion = new RegExp("\{motion\}");
-      if (regMotion.test(map.keys)) {
-        this.mapper.specialKeys[1].suggestions?.forEach((chunk) => {
-          this.suggestions.push(
-            { keys: map.keys.replace(regMotion, chunk), details: map.details || "empty" }
-          );
+    });
+  }
+
+  generateSuggestions(map) {
+    // selecting special keys to remap
+    const toGenerate = this.mapper.specialKeys.slice(1, 2) as SpecialKeyCommon[];
+
+    toGenerate.forEach((specialKey) => {
+      const regexp = new RegExp(specialKey.indicator);
+      if (regexp.test(map.keys)) {
+        specialKey.suggestions?.forEach((suggestion) => {
+          this.quickPick.addSuggestion({ keys: map.keys.replace(regexp, suggestion), details: map.details || "empty" });
         });
       }
     });
