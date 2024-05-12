@@ -63,7 +63,7 @@ export class SuggestionsList {
   showQuickPick = () => {
     this.isOpen = true;
     this.quickPick.show();
-    commands.executeCommand("workbench.action.focusFirstEditorGroup");
+    commands.executeCommand("workbench.action.focusActiveEditorGroup");
 
     this.resetPreparedSuggestions();
     this.currentListener = this.quickPick.onDidChangeValue(this.quickPickListener);
