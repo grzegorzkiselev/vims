@@ -34,7 +34,6 @@ export class Configuration {
 
   static toggleQuickPick = () => {
     this.extensionNamespace.update("useQuickPick", !this.useQuickPick, true);
-    this.onDidChangeConfiguration();
   };
 
   static init(): void {
@@ -90,11 +89,6 @@ export class Configuration {
       "setContext",
       "vims.configuration.shouldUseVimStyleNavigationInListView",
       this.getExtensionSetting<boolean>("vimStyleNavigationInListView", true),
-    );
-    commands.executeCommand(
-      "setContext",
-      "vims.configuration.useQuickPick",
-      this.getExtensionSetting<boolean>("useQuickPick", false),
     );
   }
 
