@@ -399,10 +399,10 @@ export class ModeNormal extends Mode {
 
   generateSuggestions(map) {
     // selecting special keys to remap
-    const toGenerate = this.mapper.specialKeys.slice(1, 2) as SpecialKeyCommon[];
+    const toGenerate = this.mapper.specialKeys.slice(1, 3) as SpecialKeyCommon[];
 
     toGenerate.forEach((specialKey) => {
-      const regexp = new RegExp(specialKey.indicator);
+      const regexp = new RegExp(specialKey.indicator.replace(/\{([a-zA-Z])\}/, "\\{$1\\}"));
       if (regexp.test(map.keys)) {
         specialKey.suggestions?.forEach((suggestion) => {
           this.quickPick.addSuggestion({ keys: map.keys.replace(regexp, suggestion), details: map.details || "empty" });
