@@ -85,7 +85,7 @@ export class SpecialKeyTextObject extends GenericMapper implements SpecialKeyCom
           this.map(
             `${invoker} ${character}`,
             mapInfo.method,
-            Object.assign({}, mapInfo.args, { isInclusive: true }),
+            Object.assign({}, mapInfo.args, { isInclusive: invoker === this.invokers[0] ? false : true }),
           );
           this.suggestions.push(`${invoker} ${character}`);
         });
