@@ -76,10 +76,5 @@ module.exports = {
     "space-before-function-paren": ["off"],
     "vars-on-top": ["warn"],
     "quotes": ["error", "double", { avoidEscape: true, allowTemplateLiterals: true }],
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true }
-    ],
-    "react/prop-types": ["off"],
   }
 };
