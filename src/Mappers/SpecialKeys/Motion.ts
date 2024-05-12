@@ -137,7 +137,8 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
 
     this.maps.forEach((map) => {
       this.map(map.keys, map.motionGenerators, map.args);
-      this.suggestions.push(map.presentation || map.keys);
+      this.suggestions.push(map.keys);
+      // map.presentation ||
     });
   }
 
