@@ -122,7 +122,7 @@ export const vscodeCommands: {
   command: "vims.left",
   when: "vims.isLoaded == true && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("left");
+    this._currentMode.input("h");
   },
 },
 {
@@ -130,7 +130,7 @@ export const vscodeCommands: {
   command: "vims.down",
   when: "vims.isLoaded == true && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("down");
+    this._currentMode.input("j");
   },
 },
 {
@@ -138,7 +138,7 @@ export const vscodeCommands: {
   command: "vims.up",
   when: "vims.isLoaded == true && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("up");
+    this._currentMode.input("k");
   },
 },
 {
@@ -146,7 +146,7 @@ export const vscodeCommands: {
   command: "vims.right",
   when: "vims.isLoaded == true && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("right");
+    this._currentMode.input("l");
   },
 },
 {
