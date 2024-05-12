@@ -10,12 +10,11 @@ export class SuggestionsList {
   public isOpen: boolean = false;
   public enabled: boolean = true;
   public currentListener: Disposable;
+  public quickPick: QuickPick<QuickPickItem> | never;
 
-  quickPick = (
-    Configuration.useQuickPick
-      ? window.createQuickPick() as QuickPick<QuickPickItem>
-      : null as never
-  );
+  constructor() {
+    this.revalidateConfig();
+  }
 
   public suggestions: Suggestion[] = [];
   protected preparedSuggestions: Suggestion[] = [];
