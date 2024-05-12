@@ -81,7 +81,7 @@
       {
         "key": "ctrl+o",
         "command": "vims.escape",
-        "when": "vims.isLoaded == true && editorTextFocus && vims.mode == 'INSERT'"
+        "when": "editorTextFocus && vims.isLoaded && vims.mode == 'INSERT'"
       },
       {
         "key": "i",
@@ -426,7 +426,6 @@
       {
         "key": "backspace",
         "command": "vims.backspace",
-        "when": "vims.isLoaded == true && editorTextFocus && vims.mode != 'INSERT'"
       }
     ]
   },

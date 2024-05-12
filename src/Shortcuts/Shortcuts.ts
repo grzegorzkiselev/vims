@@ -5,7 +5,7 @@ export const vscodeCommands: {
 }[] = [{
   key: "ctrl+o",
   command: "vims.escape",
-  when: "vims.isLoaded == true && editorTextFocus && vims.mode == 'INSERT'",
+  when: "editorTextFocus && vims.isLoaded && vims.mode == 'INSERT'",
   action() {
     this.ActionNativeEscape.press();
     this.ActionSelection.shrinkToActives().then((isShrunken) =>
@@ -565,9 +565,4 @@ export const vscodeCommands: {
   action() {
     this._currentMode.input("backspace");
   },
-}
-  ];
 
-export const exportShortcuts = vscodeCommands.map(({ key, command, when }) => {
-  return { key, command, when };
-});
