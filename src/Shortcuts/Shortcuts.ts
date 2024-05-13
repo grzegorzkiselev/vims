@@ -62,6 +62,22 @@ export const vscodeCommands: {
   },
 },
 {
+  key: "alt+[Backslash]",
+  command: "vims.'",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("'");
+  },
+},
+{
+  key: "shift+[Backslash]",
+  command: "vims.\"",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("\"");
+  },
+},
+{
   key: "r",
   command: "vims.r",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
@@ -243,7 +259,7 @@ export const vscodeCommands: {
   command: "vims.E",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("e");
+    this._currentMode.input("E");
   },
 },
 {
@@ -319,6 +335,14 @@ export const vscodeCommands: {
   },
 },
 {
+  key: "shift+t",
+  command: "vims.T",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("T");
+  },
+},
+{
   key: "shift+4",
   command: "vims.;",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
@@ -391,7 +415,15 @@ export const vscodeCommands: {
   },
 },
 {
-  key: "shift+[",
+  key: "[BracketLeft]",
+  command: "vims.[",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("[");
+  },
+},
+{
+  key: "shift+[BracketLeft]",
   command: "vims.{",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
@@ -399,7 +431,15 @@ export const vscodeCommands: {
   },
 },
 {
-  key: "shift+]",
+  key: "[BracketRight]",
+  command: "vims.]",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("]");
+  },
+},
+{
+  key: "shift+[BracketRight]",
   command: "vims.}",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
@@ -535,14 +575,6 @@ export const vscodeCommands: {
   },
 },
 {
-  key: ".",
-  command: "vims..",
-  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
-  action() {
-    this._currentMode.input(".");
-  },
-},
-{
   key: "shift+m",
   command: "vims.M",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
@@ -564,4 +596,77 @@ export const vscodeCommands: {
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
     this._currentMode.input("backspace");
-  },
+  }
+},
+{
+  key: "1",
+  command: "vims.1",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("1");
+  }
+},
+{
+  key: "2",
+  command: "vims.2",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("2");
+  }
+},
+{
+  key: "3",
+  command: "vims.3",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("3");
+  }
+},
+{
+  key: "4",
+  command: "vims.4",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("4");
+  }
+},
+{
+  key: "5",
+  command: "vims.5",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("5");
+  }
+},
+{
+  key: "6",
+  command: "vims.6",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("6");
+  }
+},
+{
+  key: "7",
+  command: "vims.7",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("7");
+  }
+},
+{
+  key: "8",
+  command: "vims.8",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("8");
+  }
+},
+{
+  key: "9",
+  command: "vims.9",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("9");
+  }
+}];

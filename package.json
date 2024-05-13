@@ -114,6 +114,16 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
+        "key": "alt+[Backslash]",
+        "command": "vims.'",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "shift+[Backslash]",
+        "command": "vims.\"",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
         "key": "r",
         "command": "vims.r",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
@@ -274,6 +284,11 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
+        "key": "shift+t",
+        "command": "vims.T",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
         "key": "shift+4",
         "command": "vims.;",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
@@ -319,12 +334,22 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "shift+[",
+        "key": "[BracketLeft]",
+        "command": "vims.[",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "shift+[BracketLeft]",
         "command": "vims.{",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "shift+]",
+        "key": "[BracketRight]",
+        "command": "vims.]",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "shift+[BracketRight]",
         "command": "vims.}",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
@@ -409,11 +434,6 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": ".",
-        "command": "vims..",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
-      },
-      {
         "key": "shift+m",
         "command": "vims.M",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
@@ -426,6 +446,52 @@
       {
         "key": "backspace",
         "command": "vims.backspace",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "1",
+        "command": "vims.1",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "2",
+        "command": "vims.2",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "3",
+        "command": "vims.3",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "4",
+        "command": "vims.4",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "5",
+        "command": "vims.5",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "6",
+        "command": "vims.6",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "7",
+        "command": "vims.7",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "8",
+        "command": "vims.8",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "9",
+        "command": "vims.9",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       }
     ]
   },
@@ -442,7 +508,8 @@
     "watch-tests": "tsc -p ./ -w",
     "pretest": "npm run compile && npm run compile-tests",
     "test": "vscode-test",
-    "lint": "eslint --ext ts src test"
+    "lint": "eslint --ext ts src test",
+    "install": "npx vsce package --baseContentUrl='https://t.me/grzegorzkiselev' && code --install-extension './vimscode-1.0.0.vsix'"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",
