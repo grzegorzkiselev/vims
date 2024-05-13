@@ -127,7 +127,7 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
     { keys: "G", motionGenerators: [MotionDocument.toLineOrLast] },
 
     { keys: "space", motionGenerators: [MotionDirection.next], presentation: "␣" },
-    { keys: "backspace", motionGenerators: [MotionDirection.prev], presentation: "⌫" },
+    // { keys: "backspace", motionGenerators: [MotionDirection.prev], presentation: "⌫" },
     { keys: "g d", motionGenerators: [MotionNavigation.toDeclaration] },
     { keys: "g D", motionGenerators: [MotionNavigation.toTypeDefinition] },
   ];

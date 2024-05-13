@@ -93,7 +93,6 @@ export class ModeNormal extends Mode {
       },
       details: "Delete [count] characters [into register x] and start insert (s stands for Substitute)."
     },
-
     {
       keys: "X",
       actions: [ActionDelete.selectionsOrLeft],
@@ -101,7 +100,18 @@ export class ModeNormal extends Mode {
       details: `Delete [count] characters before the cursor [into register x] (not |linewise|).  Does the same as "dh". Also see |'whichwrap'|.`
     },
     {
+      keys: "backspace",
+      actions: [ActionDelete.selectionsOrLeft],
+      args: { shouldYank: true },
+      details: `Delete [count] characters before the cursor [into register x] (not |linewise|).  Does the same as "dh". Also see |'whichwrap'|.`
+    },
+    {
       keys: "{N} X",
+      actions: [ActionDelete.selectionsOrLeft],
+      args: { shouldYank: true },
+    },
+    {
+      keys: "{N} backspace",
       actions: [ActionDelete.selectionsOrLeft],
       args: { shouldYank: true },
     },
