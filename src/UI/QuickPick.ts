@@ -1,11 +1,12 @@
 import { Disposable, QuickPick, QuickPickItem, commands, window } from "vscode";
 import { Configuration } from "../Configuration";
+import { LanguageMap } from "../Shortcuts/LanguageMap";
 
 type Suggestion = { keys: string, details: string, alwaysShow?: boolean }
 
 export class SuggestionsList {
-  protected ru: string = "фисвуапршолдьтщзйкыегмцчняФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯбхБХ;':,.<§±>?#жэю@";
-  protected en: string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]{};':,.<§±>?#$ˆ&@";
+  protected original: string = LanguageMap.original;
+  protected translations: string[] = [LanguageMap.ru];
   public ignoreInput = false;
   public isOpen: boolean = false;
   public enabled: boolean = true;
@@ -183,7 +184,11 @@ export class SuggestionsList {
   private matchLanguage(value: string) {
     const localInputs = value;
     const lastInput = localInputs.at(-1);
-    const remappedLastInput = this.mapLang(lastInput, this.ru, this.en);
+    let remappedLastInput;
+    this.translations.forEach((translation) => {
+      remappedLastInput = this.mapLang(lastInput, translation, this.original);
+    });
+
 
     if (remappedLastInput) {
       return localInputs.substring(0, localInputs.length - 1) + remappedLastInput;
