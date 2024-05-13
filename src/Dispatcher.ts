@@ -113,7 +113,10 @@ export class Dispatcher {
 
   private inputHandler(key: string, args: {} = {}): () => void {
     return () => {
-      this._currentMode.input(key);
+      if (this._currentMode.id === 3) {
+        this._currentMode.input(key);
+      }
+      return commands.executeCommand("default:type", args);
     };
   }
 
