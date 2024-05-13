@@ -1,12 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { vscodeCommands } from "../Shortcuts/Shortcuts";
 
-import("../Shortcuts/Shortcuts.js").then((module) => {
-  const { exportShortcuts } = module;
-  const filePath = String(path.resolve(__dirname, "../../package.json"));
-  const rawpackage = require(filePath);
+const filePath = String(path.resolve(__dirname, "../../package.json"));
+const rawpackage = require(filePath);
 
-  rawpackage.contributes.keybindings = exportShortcuts;
-  fs.writeFileSync(filePath, JSON.stringify(rawpackage, null, 2));
-  console.log("Shortcuts Updated! :)");
+const definedCommands = vscodeCommands.map(({ key, command, when }) => {
+  return { key, command, when };
 });
+
+rawpackage.contributes.keybindings = definedCommands;
+fs.writeFileSync(filePath, JSON.stringify(rawpackage, null, 2));
+console.log("Shortcuts Updated! :)");
