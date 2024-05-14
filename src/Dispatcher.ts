@@ -51,7 +51,7 @@ export class Dispatcher {
       try {
         commands.registerCommand(command, action, this);
       } catch (error) {
-        console.log("chill");
+        console.warn("Duplicated command");
       }
     });
 
