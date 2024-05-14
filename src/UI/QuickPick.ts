@@ -48,6 +48,10 @@ export class SuggestionsList {
     }
   };
 
+  onHide = (callback) => {
+    this.quickPick.onDidHide(callback);
+  };
+
   addSuggestion = (suggestion: Suggestion) => {
     this.suggestions.push(suggestion);
   };

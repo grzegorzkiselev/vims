@@ -28,6 +28,7 @@ export abstract class Mode {
     this.updateStatusBar();
 
     this.quickPick.revalidateConfig();
+    this.quickPick.onHide(this.onQuickPickHide);
   }
 
   updateStatusBar = (message?: string) => {
@@ -39,6 +40,11 @@ export abstract class Mode {
 
     StatusBar.updateStatusBar(status);
   };
+
+  onQuickPickHide = () => {
+    this.reduceInput({ kind: 0, map: null });
+  };
+
   exit(): void {
     this.clearInputs();
     this.clearPendings();
