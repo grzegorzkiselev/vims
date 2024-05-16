@@ -57,13 +57,13 @@ export class Dispatcher {
 
     context.subscriptions.push(
       commands.registerCommand("type", (args) => {
-        this.inputHandler(args.text)();
+        this.inputHandler(args)();
       }),
     );
 
     context.subscriptions.push(
       commands.registerCommand("replacePreviousChar", (args) => {
-        this.inputHandler(args.text, {
+        this.inputHandler(args, {
           replaceCharCnt: args.replaceCharCnt,
         })();
       }),
@@ -111,12 +111,14 @@ export class Dispatcher {
     commands.executeCommand("setContext", "vims.isLoaded", true);
   }
 
-  private inputHandler(key: string, args: {} = {}): () => void {
+  private inputHandler(key: { text: string }, args: {} = {}): () => void {
     return () => {
-      if (this._currentMode.id === 3) {
-        this._currentMode.input(key);
+      // ignore all the commands in INSERT, just type
+      if (this._currentMode.id !== 3) {
+        this._currentMode.input(key.text);
+      } else {
+        commands.executeCommand("default:type", key);
       }
-      return commands.executeCommand("default:type", args);
     };
   }
 
