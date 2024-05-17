@@ -49,7 +49,9 @@ export class SuggestionsList {
   };
 
   onHide = (callback) => {
-    this.quickPick.onDidHide(callback);
+    if (this.enabled) {
+      this.quickPick.onDidHide(callback);
+    }
   };
 
   addSuggestion = (suggestion: Suggestion) => {
