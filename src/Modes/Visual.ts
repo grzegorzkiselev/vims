@@ -193,6 +193,51 @@ export class ModeVisual extends Mode {
       keys: "escape",
       actions: [ActionNativeEscape.press, ActionSelection.shrinkToActives],
     },
+    {
+      keys: "\"",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "\"" }
+    },
+    {
+      keys: "'",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "'" }
+    },
+    {
+      keys: "`",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "`" }
+    },
+    {
+      keys: "(",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "(" }
+    },
+    {
+      keys: ")",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "(" }
+    },
+    {
+      keys: "[",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "[" }
+    },
+    {
+      keys: "]",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "[" }
+    },
+    {
+      keys: "{",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "{" }
+    },
+    {
+      keys: "}",
+      actions: [ActionInsert.textAtSelections],
+      args: { text: "{" }
+    },
   ];
 
   constructor() {

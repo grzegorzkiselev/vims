@@ -120,8 +120,8 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
       ],
     },
 
-    { keys: "{", motionGenerators: [MotionParagraph.prev] },
-    { keys: "}", motionGenerators: [MotionParagraph.next] },
+    { keys: "q", motionGenerators: [MotionParagraph.prev] },
+    { keys: "Q", motionGenerators: [MotionParagraph.next] },
 
     { keys: "g g", motionGenerators: [MotionDocument.toLineOrFirst] },
     { keys: "G", motionGenerators: [MotionDocument.toLineOrLast] },

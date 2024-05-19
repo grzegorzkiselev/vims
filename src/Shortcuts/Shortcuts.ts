@@ -423,11 +423,11 @@ export const vscodeCommands: {
   },
 },
 {
-  key: "shift+[BracketLeft]",
+  key: "shift+[Backspace]",
   command: "vims.{",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("{");
+    this._currentMode.input("q");
   },
 },
 {
@@ -439,11 +439,11 @@ export const vscodeCommands: {
   },
 },
 {
-  key: "shift+[BracketRight]",
+  key: "shift+[Delete]",
   command: "vims.}",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
-    this._currentMode.input("}");
+    this._currentMode.input("Q");
   },
 },
 {

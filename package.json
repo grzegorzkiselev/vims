@@ -339,7 +339,7 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "shift+[BracketLeft]",
+        "key": "shift+[Backspace]",
         "command": "vims.{",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
@@ -349,7 +349,7 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "shift+[BracketRight]",
+        "key": "shift+[Delete]",
         "command": "vims.}",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
