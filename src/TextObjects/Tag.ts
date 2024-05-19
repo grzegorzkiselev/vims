@@ -11,7 +11,7 @@ type MatchedTag = {
 };
 
 export class TextObjectTag extends TextObject {
-  TAG_REGEX = /<(\/)?([^><\s\/]+)(?:[^><]*?)(\/)?>/g;
+  TAG_REGEX = /<(\/)?([^<\s\/]+)(?:[^<]*?)(\/)?(?<!=)>/g;
   OPEN_FORWARD_SLASH = 1;
   TAG_NAME = 2;
   CLOSE_FORWARD_SLASH = 3;
