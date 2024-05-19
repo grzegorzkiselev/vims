@@ -1,23 +1,17 @@
-import { TextEditorRevealType } from "vscode";
 import { ActionBlockCursor } from "../Actions/BlockCursor";
 import { ActionCase } from "../Actions/Case";
 import { ActionCommandLine } from "../Actions/CommandLine";
 import { ActionDelete } from "../Actions/Delete";
 import { ActionFilter } from "../Actions/Filter";
 import { ActionFind } from "../Actions/Find";
-import { ActionFold } from "../Actions/Fold";
-import { ActionHistory } from "../Actions/History";
-import { ActionIndent } from "../Actions/Indent";
 import { ActionInsert } from "../Actions/Insert";
 import { ActionJoinLines } from "../Actions/JoinLines";
 import { ActionMode } from "../Actions/Mode";
 import { ActionMoveCursor } from "../Actions/MoveCursor";
 import { ActionNativeEscape } from "../Actions/NativeEscape";
-import { ActionPage } from "../Actions/Page";
 import { ActionRegister } from "../Actions/Register";
 import { ActionRelativeLineNumbers } from "../Actions/RelativeLineNumbers";
 import { ActionReplace } from "../Actions/Replace";
-import { ActionReveal } from "../Actions/Reveal";
 import { ActionSelection } from "../Actions/Selection";
 import { Configuration } from "../Configuration";
 import { StaticReflect } from "../LanguageExtensions/StaticReflect";
@@ -44,8 +38,8 @@ export class ModeNormal extends Mode {
       args: { noEmptyAtLineEnd: true },
     },
 
-    { keys: "ctrl+b", actions: [ActionPage.up] },
-    { keys: "ctrl+f", actions: [ActionPage.down] },
+    // { keys: "ctrl+b", actions: [ActionPage.up] },
+    // { keys: "ctrl+f", actions: [ActionPage.down] },
 
     { keys: "i", actions: [ActionMode.toInsert] },
     {
@@ -329,66 +323,63 @@ export class ModeNormal extends Mode {
       details: `Filter {motion} lines through the external program given with the 'equalprg' option.  When the 'equalprg' option is empty (this is the default), use the internal formatting function |C-indenting|.  But when 'indentexpr' is not empty, it will be used instead |indent-expression|.  When Vim was compiled without internal formatting then the "indent" program is used as a last resort.`
     },
     { keys: "= {N} {motion}", actions: [ActionFilter.Format.byMotions] },
-    {
-      keys: "= =", actions: [ActionFilter.Format.byCursors],
-      details: `Filter [count] lines like with ={motion}.`
-    },
+    // {
+    //   keys: "= =", actions: [ActionFilter.Format.byCursors],
+    //   details: `Filter [count] lines like with ={motion}.`
+    // },
 
-    {
-      keys: "u",
-      actions: [ActionHistory.undo, ActionSelection.validateSelections],
-    },
-    {
-      keys: "ctrl+r",
-      actions: [ActionHistory.redo, ActionSelection.validateSelections],
-    },
+    // {
+    //   keys: "u",
+    //   actions: [ActionHistory.undo, ActionSelection.validateSelections],
+    // },
+    // {
+    //   keys: "ctrl+r",
+    //   actions: [ActionHistory.redo, ActionSelection.validateSelections],
+    // },
 
-    {
-      keys: "< <", actions: [ActionIndent.decrease],
-      details: "Shift [count] lines one 'shiftwidth' leftwards."
-    },
-    {
-      keys: "> >", actions: [ActionIndent.increase],
-      details: "Shift [count] lines one 'shiftwidth' rightwards."
-    },
+    // {
+    //   keys: "< <", actions: [ActionIndent.decrease],
+    //   details: "Shift [count] lines one 'shiftwidth' leftwards."
+    // },
+    // {
+    //   keys: "> >", actions: [ActionIndent.increase],
+    //   details: "Shift [count] lines one 'shiftwidth' rightwards."
+    // },
 
     { keys: "/", actions: [ActionFind.focusFindWidget] },
 
     { keys: "v", actions: [ActionMode.toVisual] },
     { keys: "V", actions: [ActionMode.toVisualLine] },
-
-    {
-      keys: "z .",
-      actions: [ActionReveal.primaryCursor],
-      args: { revealType: TextEditorRevealType.InCenter },
-    },
-    {
-      keys: "z z",
-      actions: [ActionReveal.primaryCursor],
-      args: { revealType: TextEditorRevealType.InCenter },
-    },
-    {
-      keys: "z t",
-      actions: [ActionReveal.primaryCursor],
-      args: { revealType: TextEditorRevealType.AtTop },
-    },
-    { keys: "z c", actions: [ActionFold.fold] },
-    { keys: "z o", actions: [ActionFold.unfold] },
-    { keys: "z M", actions: [ActionFold.foldAll] },
-    { keys: "z R", actions: [ActionFold.unfoldAll] },
+    // {
+    //   keys: "z up",
+    //   actions: [ActionScroll.scrollLineUp],
+    // },
+    // {
+    //   keys: "{N} z up",
+    //   actions: [ActionScroll.scrollLineUp],
+    // },
+    // {
+    //   keys: "z z",
+    //   actions: [ActionReveal.primaryCursor],
+    //   args: { revealType: TextEditorRevealType.InCenter },
+    // },
+    // { keys: "z c", actions: [ActionFold.fold] },
+    // { keys: "z o", actions: [ActionFold.unfold] },
+    // { keys: "z M", actions: [ActionFold.foldAll] },
+    // { keys: "z R", actions: [ActionFold.unfoldAll] },
 
     { keys: ":", actions: [ActionCommandLine.promptAndRun] },
 
-    { keys: ".", actions: [this.repeatRecordedCommandMaps.bind(this)] },
+    // { keys: ".", actions: [this.repeatRecordedCommandMaps.bind(this)] },
 
-    {
-      keys: "ctrl+c",
-      actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
-    },
-    {
-      keys: "ctrl+[",
-      actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
-    },
+    // {
+    //   keys: "ctrl+c",
+    //   actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
+    // },
+    // {
+    //   keys: "ctrl+[",
+    //   actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
+    // },
     {
       keys: "escape",
       actions: [ActionNativeEscape.press, ActionSelection.shrinkToPrimaryActive],
@@ -481,20 +472,20 @@ export class ModeNormal extends Mode {
     }
   }
 
-  private repeatRecordedCommandMaps(): Thenable<boolean> {
-    if (this._recordedCommandMaps === undefined) {
-      return Promise.resolve(false);
-    }
+  // private repeatRecordedCommandMaps(): Thenable<boolean> {
+  //   if (this._recordedCommandMaps === undefined) {
+  //     return Promise.resolve(false);
+  //   }
 
-    // TODO: Replace `args.n` if provided
+  //   // TODO: Replace `args.n` if provided
 
-    this._recordedCommandMaps.forEach((map) => this.pushCommandMap(map));
-    this.pushCommandMap({
-      keys: "escape",
-      actions: [ActionNativeEscape.press],
-    });
-    this.execute();
+  //   this._recordedCommandMaps.forEach((map) => this.pushCommandMap(map));
+  //   this.pushCommandMap({
+  //     keys: "escape",
+  //     actions: [ActionNativeEscape.press],
+  //   });
+  //   this.execute();
 
-    return Promise.resolve(true);
-  }
+  //   return Promise.resolve(true);
+  // }
 }
