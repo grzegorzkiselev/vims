@@ -74,7 +74,7 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
       motionGenerators: [MotionMatch.prev],
       args: { isTill: true },
     },
-    { keys: ";", motionGenerators: [MotionMatch.repeatLast] },
+    { keys: ".", motionGenerators: [MotionMatch.repeatLast] },
     {
       keys: ",",
       motionGenerators: [MotionMatch.repeatLast],
