@@ -79,7 +79,7 @@
     ],
     "keybindings": [
       {
-        "key": "ctrl+o",
+        "key": "escape",
         "command": "vims.escape",
         "when": "editorTextFocus && vims.isLoaded && vims.mode == 'INSERT'"
       },

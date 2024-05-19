@@ -3,7 +3,7 @@ import { Dispatcher } from "../Dispatcher";
 export const vscodeCommands: {
   key: string, command: string, when: string, action: (this: Dispatcher) => void
 }[] = [{
-  key: "ctrl+o",
+  key: "escape",
   command: "vims.escape",
   when: "editorTextFocus && vims.isLoaded && vims.mode == 'INSERT'",
   action() {
