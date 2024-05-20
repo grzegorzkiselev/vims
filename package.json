@@ -369,6 +369,10 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
+        "key": "ctrl+shift+,",
+        "command": "vims.toParentFold",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
         "key": "delete",
         "command": "vims.delete",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"

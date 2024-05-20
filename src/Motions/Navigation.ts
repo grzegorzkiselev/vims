@@ -3,10 +3,18 @@ import { Motion } from "./Motion";
 
 export class MotionNavigation extends Motion {
   private command: string;
+  private number?: number;
 
   static toDeclaration(): Motion {
     const obj = new MotionNavigation({ isLinewise: true });
     obj.command = "editor.action.goToDeclaration";
+    return obj;
+  }
+
+  static toParentFold(args: { n: number }): Motion {
+    const obj = new MotionNavigation({ isLinewise: true });
+    obj.command = "editor.gotoParentFold";
+    obj.number = args.n;
     return obj;
   }
 
@@ -25,7 +33,9 @@ export class MotionNavigation extends Motion {
       return from;
     }
 
-    await commands.executeCommand(this.command);
+    do {
+      await commands.executeCommand(this.command);
+    } while (this.number && --this.number);
 
     return activeTextEditor.selection.active;
   }
