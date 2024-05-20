@@ -123,6 +123,11 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
     { keys: "q", motionGenerators: [MotionParagraph.prev] },
     { keys: "Q", motionGenerators: [MotionParagraph.next] },
 
+    { keys: "«", motionGenerators: [MotionParagraph.prevWithIndentation, MotionLine.firstNonBlank] },
+    { keys: "»", motionGenerators: [MotionParagraph.nextWithIndentation, MotionLine.firstNonBlank] },
+
+    { keys: "ctrl+shift+,", motionGenerators: [MotionNavigation.toParentFold] },
+
     { keys: "g g", motionGenerators: [MotionDocument.toLineOrFirst] },
     { keys: "G", motionGenerators: [MotionDocument.toLineOrLast] },
 

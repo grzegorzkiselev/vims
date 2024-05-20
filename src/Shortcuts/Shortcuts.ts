@@ -447,6 +447,30 @@ export const vscodeCommands: {
   },
 },
 {
+  key: "ctrl+shift+,",
+  command: "vims.toParentFold",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("ctrl+shift+,");
+  },
+},
+{
+  key: "shift+alt+cmd+down",
+  command: "vims.nextWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("»");
+  },
+},
+{
+  key: "shift+alt+cmd+up",
+  command: "vims.previousWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  action() {
+    this._currentMode.input("«");
+  },
+},
+{
   key: "delete",
   command: "vims.delete",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",

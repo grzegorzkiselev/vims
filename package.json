@@ -354,6 +354,21 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
+        "key": "ctrl+shift+,",
+        "command": "vims.toParentFold",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "shift+alt+cmd+down",
+        "command": "vims.nextWithSameIndent",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
+        "key": "shift+alt+cmd+up",
+        "command": "vims.previousWithSameIndent",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+      },
+      {
         "key": "delete",
         "command": "vims.delete",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
