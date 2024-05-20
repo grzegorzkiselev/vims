@@ -149,9 +149,52 @@ export class ActionSelection {
       if (match) {
         const intersection = selection.intersection(match);
         const range =
-                    args.textObject.willFindForward && (!intersection || intersection.isEmpty)
-                      ? match
-                      : selection.union(match);
+          args.textObject.willFindForward && (!intersection || intersection.isEmpty)
+            ? match
+            : selection.union(match);
+        selection = selection.isReversed
+          ? new Selection(range.end, range.start)
+          : new Selection(range.start, range.end);
+      }
+      selections.push(selection);
+    });
+
+    if (selections.length === 0) {
+      return Promise.reject<boolean>(false);
+    }
+
+    activeTextEditor.selections = selections;
+
+    return Promise.resolve(true);
+  }
+
+  static selectByTextObject(args: { textObject: TextObject }): Thenable<boolean> {
+    const activeTextEditor = window.activeTextEditor;
+
+    if (!activeTextEditor) {
+      return Promise.resolve(false);
+    }
+
+    const selections: Selection[] = [];
+
+    activeTextEditor.selections.forEach((selection) => {
+      let positionToApply: Position;
+
+      if (selection.isEmpty || UtilRange.isSingleCharacter(selection)) {
+        positionToApply = selection.start;
+      } else {
+        positionToApply = UtilSelection.getActiveInVisualMode(selection);
+
+        if (selection.isReversed && positionToApply.character > 0) {
+          positionToApply = positionToApply.translate(0, -1);
+        } else if (!selection.isReversed) {
+          positionToApply = positionToApply.translate(0, +1);
+        }
+      }
+
+      const match = args.textObject.apply(positionToApply);
+      if (match) {
+        const range = match;
         selection = selection.isReversed
           ? new Selection(range.end, range.start)
           : new Selection(range.start, range.end);

@@ -58,7 +58,7 @@ export class ModeVisual extends Mode {
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualMode: true },
     },
-    { keys: "{textObject}", actions: [ActionSelection.expandByTextObject] },
+    { keys: "{textObject}", actions: [ActionSelection.selectByTextObject] },
     {
       keys: "ctrl+b",
       actions: [ActionPage.up],
