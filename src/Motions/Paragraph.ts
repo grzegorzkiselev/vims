@@ -3,9 +3,13 @@ import { Motion } from "./Motion";
 
 enum Direction {
   Prev,
-  PrevWithIndentation,
+  PrevWithSameIndentation,
   Next,
-  NextWithIndentation,
+  NextWithSameIndentation,
+  NextIndentationLevelDown,
+  NextIndentationLevelUp,
+  PreviousIndentationLevelDown,
+  PreviousIndentationLevelUp
 }
 
 export class MotionParagraph extends Motion {
@@ -30,7 +34,7 @@ export class MotionParagraph extends Motion {
 
   static prevWithIndentation(args: { n?: number }): Motion {
     return new MotionParagraph({
-      direction: Direction.PrevWithIndentation,
+      direction: Direction.PrevWithSameIndentation,
       n: args.n,
     });
   }
@@ -44,7 +48,35 @@ export class MotionParagraph extends Motion {
 
   static nextWithIndentation(args: { n?: number }): Motion {
     return new MotionParagraph({
-      direction: Direction.NextWithIndentation,
+      direction: Direction.NextWithSameIndentation,
+      n: args.n,
+    });
+  }
+
+  static nextIndentationLevelDown(args: { n?: number }): Motion {
+    return new MotionParagraph({
+      direction: Direction.NextIndentationLevelDown,
+      n: args.n,
+    });
+  }
+
+  static nextIndentationLevelUp(args: { n?: number }): Motion {
+    return new MotionParagraph({
+      direction: Direction.NextIndentationLevelUp,
+      n: args.n,
+    });
+  }
+
+  static previousIndentationLevelUp(args: { n?: number }): Motion {
+    return new MotionParagraph({
+      direction: Direction.PreviousIndentationLevelUp,
+      n: args.n,
+    });
+  }
+
+  static previousIndentationLevelDown(args: { n?: number }): Motion {
+    return new MotionParagraph({
+      direction: Direction.PreviousIndentationLevelDown,
       n: args.n,
     });
   }
@@ -80,68 +112,39 @@ export class MotionParagraph extends Motion {
     to: Position;
     shouldStop: boolean;
   } {
-    let toLine: number | undefined = undefined;
-    let toCharacter = 0;
-    let shouldStop = false;
-
     // Skip first group of empty lines if currently on empty line.
-    // let shouldSkip = MotionParagraph.isLineEmpty(document, from.line);
-    let { shouldSkip, currentIndentation } = MotionParagraph.getCurrentIndentation(document, from.line);
-    // let shouldSkip = MotionParagraph.isLineEmpty(document, from.line);
+    const { shouldSkip, currentIndentation } = MotionParagraph.getCurrentIndentation(document, from.line);
 
-    let conditionalI, stopCondition, modifier, lineResolver, lineCondition;
+    const loopProperties = this.getLoopProperties({ from, document });
 
-    const toStart = () => {
-      shouldStop = true;
-      toLine = 0;
+    const { toCharacter, shouldStop, toLine } = this.findLine({
+      document,
+      currentIndentation,
+      shouldSkip,
+      ...loopProperties
+    });
+
+    return {
+      to: new Position(toLine, toCharacter || 0),
+      shouldStop: shouldStop,
     };
+  }
 
-    const toEnd = () => {
-      shouldStop = true;
-      toLine = document.lineCount - 1;
-      toCharacter = document.lineAt(toLine).text.length;
-    };
+  private findLine({
+    document,
+    currentIndentation,
+    shouldSkip,
+    conditionalI,
+    stopCondition,
+    indexUpdater,
+    lineCondition,
+    lineResolver,
+  }) {
+    let shouldStop = true;
+    let toCharacter;
+    let toLine;
 
-    const toStayInPlace = () => {
-      shouldStop = true;
-      toLine = from.line;
-    const toPreviousWithSameIndentation = () => {
-      this.direction = Direction.PrevWithSameIndentation;
-      return {
-        shouldRetry: true
-      };
-    };
-
-    const toNextWithSameIndentation = () => {
-      this.direction = Direction.NextWithSameIndentation;
-      return {
-        shouldRetry: true
-      };
-    };
-
-    if (this.direction === Direction.Prev || this.direction === Direction.PrevWithIndentation) {
-      conditionalI = from.line - 1;
-      stopCondition = (i) => i >= 0;
-      lineResolver = toStart;
-      lineCondition = MotionParagraph.isLineEmpty;
-      modifier = "dec";
-    } else if (this.direction === Direction.Next || this.direction === Direction.NextWithIndentation) {
-      conditionalI = from.line + 1;
-      stopCondition = (i) => i < document.lineCount;
-      lineResolver = toEnd;
-      lineCondition = MotionParagraph.isLineEmpty;
-      modifier = "inc";
-    }
-
-    if (this.direction === Direction.PrevWithIndentation) {
-      lineCondition = MotionParagraph.isIndentationMatch;
-      lineResolver = toStayInPlace;
-    } else if (this.direction === Direction.NextWithIndentation) {
-      lineCondition = MotionParagraph.isIndentationMatch;
-      lineResolver = toStayInPlace;
-    }
-
-    for (let i = conditionalI; stopCondition(i); modifier === "inc" ? i++ : i--) {
+    for (let i = conditionalI; stopCondition(i); indexUpdater === "inc" ? i++ : i--) {
       const isAcceptableLine = lineCondition(document, i, currentIndentation);
 
       if (shouldSkip) {
@@ -158,12 +161,103 @@ export class MotionParagraph extends Motion {
     }
 
     if (toLine === undefined) {
-      lineResolver();
+      ({ shouldStop, toLine, toCharacter } = lineResolver());
+    }
+
+    return { toCharacter, shouldStop, toLine };
+  }
+
+  private getLoopProperties({
+    from,
+    document
+  }) {
+    let conditionalI,
+      toLine,
+      toCharacter,
+      shouldStop,
+      stopCondition,
+      indexUpdater,
+      lineResolver,
+      lineCondition;
+
+    const toStart = () => {
+      return {
+        shouldStop: true,
+        toLine: 0,
+      };
+    };
+
+    const toEnd = () => {
+      const toLine = document.lineCount - 1;
+      return {
+        shouldStop: true,
+        toLine,
+        toCharacter: document.lineAt(toLine).text.length,
+      };
+    };
+
+    const toStayInPlace = () => {
+      return {
+        shouldStop: true,
+        toLine: from.line,
+      };
+    };
+
+    if (this.direction === Direction.Prev
+      || this.direction === Direction.PrevWithSameIndentation
+      || this.direction === Direction.PreviousIndentationLevelUp
+      || this.direction === Direction.NextIndentationLevelUp
+    ) {
+      conditionalI = from.line - 1;
+      stopCondition = (i) => i >= 0;
+      lineResolver = toStart;
+      lineCondition = MotionParagraph.isLineEmpty;
+      indexUpdater = "dec";
+    } else if (
+      this.direction === Direction.Next
+      || this.direction === Direction.NextWithSameIndentation
+      || this.direction === Direction.NextIndentationLevelDown
+      || this.direction === Direction.PreviousIndentationLevelDown
+    ) {
+      conditionalI = from.line + 1;
+      stopCondition = (i) => i < document.lineCount;
+      lineResolver = toEnd;
+      lineCondition = MotionParagraph.isLineEmpty;
+      indexUpdater = "inc";
+    }
+
+    if (this.direction === Direction.PrevWithSameIndentation
+      || this.direction === Direction.NextWithSameIndentation
+      || this.direction === Direction.PreviousIndentationLevelUp
+      || this.direction === Direction.PreviousIndentationLevelDown
+      || this.direction === Direction.NextIndentationLevelUp
+      || this.direction === Direction.NextIndentationLevelDown
+    ) {
+      lineCondition = MotionParagraph.isIndentationMatch;
+      lineResolver = toStayInPlace;
+    }
+
+    if (this.direction === Direction.NextIndentationLevelUp
+      || this.direction === Direction.NextIndentationLevelDown
+    ) {
+      lineCondition = (document, line, indentation) => MotionParagraph.isIndentationMatch(document, line, `${indentation + 1},`);
+    }
+
+    if (this.direction === Direction.PreviousIndentationLevelUp
+      || this.direction === Direction.PreviousIndentationLevelDown
+    ) {
+      lineCondition = (document, line, indentation) => MotionParagraph.isIndentationMatch(document, line, `0,${indentation - 1}`);
     }
 
     return {
-      to: new Position(toLine!, toCharacter),
-      shouldStop: shouldStop,
+      conditionalI,
+      shouldStop,
+      toLine,
+      toCharacter,
+      stopCondition,
+      lineResolver,
+      lineCondition,
+      indexUpdater
     };
   }
 
@@ -178,7 +272,7 @@ export class MotionParagraph extends Motion {
     };
   }
 
-  private static isIndentationMatch(document: TextDocument, line: number, indentation: number): boolean {
+  private static isIndentationMatch(document: TextDocument, line: number, indentation: string): boolean {
     const tester = new RegExp(`^[\\s|\\t]{${indentation}}[^\\s\\t]`);
     return tester.test(document.lineAt(line).text);
   }

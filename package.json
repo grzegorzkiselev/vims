@@ -354,8 +354,8 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "ctrl+shift+,",
-        "command": "vims.toParentFold",
+        "key": "shift+alt+cmd+down",
+        "command": "vims.nextWithSameIndent",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
@@ -369,10 +369,26 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "ctrl+shift+,",
-        "command": "vims.toParentFold",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+        "key": "ctrl+.",
+        "command": "vims.nextIndentationLevelDown",
+        "when": "vims.isLoaded && editorTextFocus"
       },
+      {
+        "key": "ctrl+,",
+        "command": "vims.previousIndentationLevelUp",
+        "when": "vims.isLoaded && editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+,",
+        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+        "command": "vims.nextIndentationLevelUp",
+      },
+      {
+        "key": "ctrl+shift+.",
+        "command": "vims.previousIndentationLevelDown",
+        "when": "vims.isLoaded && editorTextFocus"
+      },
+      {
         "key": "delete",
         "command": "vims.delete",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"

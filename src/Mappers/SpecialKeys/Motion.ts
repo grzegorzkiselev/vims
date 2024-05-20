@@ -126,7 +126,11 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
     { keys: "«", motionGenerators: [MotionParagraph.prevWithIndentation, MotionLine.firstNonBlank] },
     { keys: "»", motionGenerators: [MotionParagraph.nextWithIndentation, MotionLine.firstNonBlank] },
 
-    { keys: "ctrl+shift+,", motionGenerators: [MotionNavigation.toParentFold] },
+    { keys: "“", motionGenerators: [MotionParagraph.nextIndentationLevelDown, MotionLine.firstNonBlank] },
+    { keys: "„", motionGenerators: [MotionParagraph.previousIndentationLevelUp, MotionLine.firstNonBlank] },
+
+    { keys: "‘", motionGenerators: [MotionParagraph.nextIndentationLevelUp, MotionLine.firstNonBlank] },
+    { keys: "’", motionGenerators: [MotionParagraph.previousIndentationLevelDown, MotionLine.firstNonBlank] },
 
     { keys: "g g", motionGenerators: [MotionDocument.toLineOrFirst] },
     { keys: "G", motionGenerators: [MotionDocument.toLineOrLast] },

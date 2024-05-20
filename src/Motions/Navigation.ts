@@ -11,13 +11,6 @@ export class MotionNavigation extends Motion {
     return obj;
   }
 
-  static toParentFold(args: { n: number }): Motion {
-    const obj = new MotionNavigation({ isLinewise: true });
-    obj.command = "editor.gotoParentFold";
-    obj.number = args.n;
-    return obj;
-  }
-
   static toTypeDefinition(): Motion {
     const obj = new MotionNavigation({ isLinewise: true });
     obj.command = "editor.action.goToTypeDefinition";
