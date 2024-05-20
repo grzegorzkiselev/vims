@@ -41,13 +41,15 @@ export class ActionMoveCursor {
   }
 
   static async byMotions(args: {
-        motions: Motion[];
-        isVisualMode?: boolean;
-        isVisualLineMode?: boolean;
-        noEmptyAtLineEnd?: boolean;
-    }): Promise<boolean> {
+    motions: Motion[];
+    isVisualMode?: boolean;
+    isVisualLineMode?: boolean;
+    noEmptyAtLineEnd?: boolean;
+    isSelectionAllowed?: boolean
+  }): Promise<boolean> {
     args.isVisualMode = args.isVisualMode === undefined ? false : args.isVisualMode;
     args.isVisualLineMode = args.isVisualLineMode === undefined ? false : args.isVisualLineMode;
+    args.isSelectionAllowed = args.isSelectionAllowed === undefined ? false : args.isSelectionAllowed;
     args.noEmptyAtLineEnd = args.noEmptyAtLineEnd === undefined ? false : args.noEmptyAtLineEnd;
 
     const activeTextEditor = window.activeTextEditor;
@@ -100,7 +102,7 @@ export class ActionMoveCursor {
         ) {
           anchor = anchor.translate(0, +1);
         }
-      } else if (args.isVisualLineMode) {
+      } else if (args.isVisualLineMode || args.isSelectionAllowed) {
         anchor = selection.anchor;
 
         if (anchor.isBefore(active)) {

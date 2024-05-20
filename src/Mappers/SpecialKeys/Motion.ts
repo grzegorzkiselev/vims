@@ -6,7 +6,6 @@ import { MotionMatch } from "../../Motions/Match";
 import { MotionMatchPair } from "../../Motions/MatchPair";
 import { Motion } from "../../Motions/Motion";
 import { MotionNavigation } from "../../Motions/Navigation";
-import { MotionParagraph } from "../../Motions/Paragraph";
 import { MotionWord } from "../../Motions/Word";
 import { MotionWrappedLine } from "../../Motions/WrappedLine";
 import { GenericMap, GenericMapper, MatchResultKind, RecursiveMap } from "../Generic";
@@ -119,18 +118,6 @@ export class SpecialKeyMotion extends GenericMapper implements SpecialKeyCommon 
         MotionLine.firstNonBlank,
       ],
     },
-
-    { keys: "q", motionGenerators: [MotionParagraph.prev] },
-    { keys: "Q", motionGenerators: [MotionParagraph.next] },
-
-    { keys: "«", motionGenerators: [MotionParagraph.prevWithIndentation, MotionLine.firstNonBlank] },
-    { keys: "»", motionGenerators: [MotionParagraph.nextWithIndentation, MotionLine.firstNonBlank] },
-
-    { keys: "“", motionGenerators: [MotionParagraph.nextIndentationLevelDown, MotionLine.firstNonBlank] },
-    { keys: "„", motionGenerators: [MotionParagraph.previousIndentationLevelUp, MotionLine.firstNonBlank] },
-
-    { keys: "‘", motionGenerators: [MotionParagraph.nextIndentationLevelUp, MotionLine.firstNonBlank] },
-    { keys: "’", motionGenerators: [MotionParagraph.previousIndentationLevelDown, MotionLine.firstNonBlank] },
 
     { keys: "g g", motionGenerators: [MotionDocument.toLineOrFirst] },
     { keys: "G", motionGenerators: [MotionDocument.toLineOrLast] },

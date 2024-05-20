@@ -1,8 +1,10 @@
 import { Action } from "../Actions/Action";
 import { GenericMap, GenericMapper, MatchResult, MatchResultKind } from "./Generic";
 import { SpecialKeyChar } from "./SpecialKeys/Char";
+import { SpecialKeyInsertCompatibleMotion } from "./SpecialKeys/InsertCompatibleMotion";
 import { SpecialKeyMotion } from "./SpecialKeys/Motion";
 import { SpecialKeyN } from "./SpecialKeys/N";
+import { SpecialKeySelectableMotion } from "./SpecialKeys/SelectableMotion";
 import { SpecialKeyTextObject } from "./SpecialKeys/TextObject";
 
 export interface CommandMatchResult extends MatchResult {
@@ -20,6 +22,8 @@ export class CommandMapper extends GenericMapper {
     super([
       new SpecialKeyN(),
       new SpecialKeyMotion(),
+      new SpecialKeyInsertCompatibleMotion(),
+      new SpecialKeySelectableMotion(),
       new SpecialKeyTextObject(),
       new SpecialKeyChar(),
     ]);

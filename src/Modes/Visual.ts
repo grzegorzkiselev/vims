@@ -38,6 +38,26 @@ export class ModeVisual extends Mode {
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualMode: true },
     },
+    {
+      keys: "{safe+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualMode: true },
+    },
+    {
+      keys: "{N} {safe+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualMode: true },
+    },
+    {
+      keys: "{shift+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualMode: true },
+    },
+    {
+      keys: "{N} {shift+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualMode: true },
+    },
     { keys: "{textObject}", actions: [ActionSelection.expandByTextObject] },
     {
       keys: "ctrl+b",

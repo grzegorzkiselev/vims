@@ -37,7 +37,26 @@ export class ModeVisualLine extends Mode {
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualLineMode: true },
     },
-
+    {
+      keys: "{safe+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualLineMode: true },
+    },
+    {
+      keys: "{N} {safe+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualLineMode: true },
+    },
+    {
+      keys: "{shift+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualLineMode: true },
+    },
+    {
+      keys: "{N} {shift+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { isVisualLineMode: true },
+    },
     {
       keys: "ctrl+b",
       actions: [ActionPage.up],

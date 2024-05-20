@@ -3,17 +3,12 @@ import { Action } from "../Actions/Action";
 import { ActionBlockCursor } from "../Actions/BlockCursor";
 import { ActionDelete } from "../Actions/Delete";
 import { ActionInsert } from "../Actions/Insert";
-import { ActionMode } from "../Actions/Mode";
 import { ActionMoveCursor } from "../Actions/MoveCursor";
-import { ActionNativeEscape } from "../Actions/NativeEscape";
 import { ActionRelativeLineNumbers } from "../Actions/RelativeLineNumbers";
-import { ActionSelection } from "../Actions/Selection";
 import { Configuration } from "../Configuration";
 import { CommandMap } from "../Mappers/Command";
 import { MatchResultKind } from "../Mappers/Generic";
 import { MotionCharacter } from "../Motions/Character";
-import { MotionLine } from "../Motions/Line";
-import { MotionWord } from "../Motions/Word";
 import { Mode, ModeID } from "./Mode";
 
 export class ModeInsert extends Mode {
@@ -71,9 +66,14 @@ export class ModeInsert extends Mode {
     //   ],
     // },
     {
-      keys: "{motion}",
+      keys: "{safe+motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { noEmptyAtLineEnd: true },
+    },
+    {
+      keys: "{shift+motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { noEmptyAtLineEnd: true, isSelectionAllowed: true },
     },
   ];
 
