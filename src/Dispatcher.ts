@@ -114,11 +114,11 @@ export class Dispatcher {
   private inputHandler(key: { text: string }, args: {} = {}): () => void {
     return () => {
       // ignore all the commands in INSERT, just type
-      if (this._currentMode.id !== 3) {
-        this._currentMode.input(key.text);
-      } else {
-        commands.executeCommand("default:type", key);
-      }
+      // if (this._currentMode.id !== 3) {
+      this._currentMode.input(key.text);
+      // } else {
+      // commands.executeCommand("default:type", key);
+      // }
     };
   }
 

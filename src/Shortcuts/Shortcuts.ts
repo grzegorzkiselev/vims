@@ -425,7 +425,7 @@ export const vscodeCommands: {
 {
   key: "shift+[Backspace]",
   command: "vims.{",
-  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  when: "vims.isLoaded && editorTextFocus",
   action() {
     this._currentMode.input("q");
   },
@@ -441,7 +441,7 @@ export const vscodeCommands: {
 {
   key: "shift+[Delete]",
   command: "vims.}",
-  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  when: "vims.isLoaded && editorTextFocus",
   action() {
     this._currentMode.input("Q");
   },
@@ -457,7 +457,7 @@ export const vscodeCommands: {
 {
   key: "shift+alt+cmd+down",
   command: "vims.nextWithSameIndent",
-  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  when: "vims.isLoaded && editorTextFocus",
   action() {
     this._currentMode.input("»");
   },
@@ -465,7 +465,7 @@ export const vscodeCommands: {
 {
   key: "shift+alt+cmd+up",
   command: "vims.previousWithSameIndent",
-  when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
+  when: "vims.isLoaded && editorTextFocus",
   action() {
     this._currentMode.input("«");
   },

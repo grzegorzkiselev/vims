@@ -21,54 +21,59 @@ export class ModeInsert extends Mode {
   name = "INSERT";
 
   private maps: CommandMap[] = [
-    {
-      keys: "ctrl+w",
-      actions: [
-        () =>
-          ActionDelete.byMotions({
-            motions: [MotionWord.prevStart()],
-          }),
-      ],
-    },
-    {
-      keys: "ctrl+u",
-      actions: [
-        () =>
-          ActionDelete.byMotions({
-            motions: [MotionLine.firstNonBlank()],
-          }),
-      ],
-    },
+    // {
+    //   keys: "ctrl+w",
+    //   actions: [
+    //     () =>
+    //       ActionDelete.byMotions({
+    //         motions: [MotionWord.prevStart()],
+    //       }),
+    //   ],
+    // },
+    // {
+    //   keys: "ctrl+u",
+    //   actions: [
+    //     () =>
+    //       ActionDelete.byMotions({
+    //         motions: [MotionLine.firstNonBlank()],
+    //       }),
+    //   ],
+    // },
 
+    // {
+    //   keys: "ctrl+c",
+    //   actions: [
+    //     ActionNativeEscape.press,
+    //     () =>
+    //       ActionSelection.shrinkToActives().then((isShrunken) =>
+    //         isShrunken ? Promise.resolve(true) : ActionMode.toNormal(),
+    //       ),
+    //   ],
+    // },
+    // {
+    //   keys: "ctrl+[",
+    //   actions: [
+    //     ActionNativeEscape.press,
+    //     () =>
+    //       ActionSelection.shrinkToActives().then((isShrunken) =>
+    //         isShrunken ? Promise.resolve(true) : ActionMode.toNormal(),
+    //       ),
+    //   ],
+    // },
+    // {
+    //   keys: "escape",
+    //   actions: [
+    //     ActionNativeEscape.press,
+    //     () =>
+    //       ActionSelection.shrinkToActives().then((isShrunken) =>
+    //         isShrunken ? Promise.resolve(true) : ActionMode.toNormal(),
+    //       ),
+    //   ],
+    // },
     {
-      keys: "ctrl+c",
-      actions: [
-        ActionNativeEscape.press,
-        () =>
-          ActionSelection.shrinkToActives().then((isShrunken) =>
-            isShrunken ? Promise.resolve(true) : ActionMode.toNormal(),
-          ),
-      ],
-    },
-    {
-      keys: "ctrl+[",
-      actions: [
-        ActionNativeEscape.press,
-        () =>
-          ActionSelection.shrinkToActives().then((isShrunken) =>
-            isShrunken ? Promise.resolve(true) : ActionMode.toNormal(),
-          ),
-      ],
-    },
-    {
-      keys: "escape",
-      actions: [
-        ActionNativeEscape.press,
-        () =>
-          ActionSelection.shrinkToActives().then((isShrunken) =>
-            isShrunken ? Promise.resolve(true) : ActionMode.toNormal(),
-          ),
-      ],
+      keys: "{motion}",
+      actions: [ActionMoveCursor.byMotions],
+      args: { noEmptyAtLineEnd: true },
     },
   ];
 

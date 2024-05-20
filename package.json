@@ -341,7 +341,7 @@
       {
         "key": "shift+[Backspace]",
         "command": "vims.{",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+        "when": "vims.isLoaded && editorTextFocus"
       },
       {
         "key": "[BracketRight]",
@@ -351,7 +351,7 @@
       {
         "key": "shift+[Delete]",
         "command": "vims.}",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+        "when": "vims.isLoaded && editorTextFocus"
       },
       {
         "key": "shift+alt+cmd+down",
@@ -361,12 +361,12 @@
       {
         "key": "shift+alt+cmd+down",
         "command": "vims.nextWithSameIndent",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+        "when": "vims.isLoaded && editorTextFocus"
       },
       {
         "key": "shift+alt+cmd+up",
         "command": "vims.previousWithSameIndent",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
+        "when": "vims.isLoaded && editorTextFocus"
       },
       {
         "key": "ctrl+.",
@@ -380,8 +380,8 @@
       },
       {
         "key": "ctrl+shift+,",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
         "command": "vims.nextIndentationLevelUp",
+        "when": "vims.isLoaded && editorTextFocus"
       },
       {
         "key": "ctrl+shift+.",
