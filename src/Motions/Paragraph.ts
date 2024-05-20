@@ -105,6 +105,18 @@ export class MotionParagraph extends Motion {
     const toStayInPlace = () => {
       shouldStop = true;
       toLine = from.line;
+    const toPreviousWithSameIndentation = () => {
+      this.direction = Direction.PrevWithSameIndentation;
+      return {
+        shouldRetry: true
+      };
+    };
+
+    const toNextWithSameIndentation = () => {
+      this.direction = Direction.NextWithSameIndentation;
+      return {
+        shouldRetry: true
+      };
     };
 
     if (this.direction === Direction.Prev || this.direction === Direction.PrevWithIndentation) {
