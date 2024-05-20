@@ -147,6 +147,18 @@ export class MotionParagraph extends Motion {
     for (let i = conditionalI; stopCondition(i); indexUpdater === "inc" ? i++ : i--) {
       const isAcceptableLine = lineCondition(document, i, currentIndentation);
 
+      if (!isAcceptableLine
+        && (
+          this.direction === Direction.NextIndentationLevelUp
+          || this.direction === Direction.NextIndentationLevelDown
+        )) {
+        const { currentIndentation: candidateIndentation } = MotionParagraph.getCurrentIndentation(document, i);
+
+        if (candidateIndentation < currentIndentation) {
+          break;
+        }
+      }
+
       if (shouldSkip) {
         if (!isAcceptableLine) {
           shouldSkip = false;
