@@ -39,22 +39,12 @@ export class ModeVisual extends Mode {
       args: { isVisualMode: true },
     },
     {
-      keys: "{safe+motion}",
+      keys: "*{motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualMode: true },
     },
     {
-      keys: "{N} {safe+motion}",
-      actions: [ActionMoveCursor.byMotions],
-      args: { isVisualMode: true },
-    },
-    {
-      keys: "{shift+motion}",
-      actions: [ActionMoveCursor.byMotions],
-      args: { isVisualMode: true },
-    },
-    {
-      keys: "{N} {shift+motion}",
+      keys: "{N} *{motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualMode: true },
     },

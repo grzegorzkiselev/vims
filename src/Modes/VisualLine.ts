@@ -38,22 +38,12 @@ export class ModeVisualLine extends Mode {
       args: { isVisualLineMode: true },
     },
     {
-      keys: "{safe+motion}",
+      keys: "*{motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualLineMode: true },
     },
     {
-      keys: "{N} {safe+motion}",
-      actions: [ActionMoveCursor.byMotions],
-      args: { isVisualLineMode: true },
-    },
-    {
-      keys: "{shift+motion}",
-      actions: [ActionMoveCursor.byMotions],
-      args: { isVisualLineMode: true },
-    },
-    {
-      keys: "{N} {shift+motion}",
+      keys: "{N} *{motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualLineMode: true },
     },

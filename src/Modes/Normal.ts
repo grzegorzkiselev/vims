@@ -38,24 +38,14 @@ export class ModeNormal extends Mode {
       args: { noEmptyAtLineEnd: true },
     },
     {
-      keys: "{safe+motion}",
+      keys: "*{motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { noEmptyAtLineEnd: true },
     },
     {
-      keys: "{N} {safe+motion}",
+      keys: "{N} *{motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { noEmptyAtLineEnd: true },
-    },
-    {
-      keys: "{shift+motion}",
-      actions: [ActionMoveCursor.byMotions],
-      args: { noEmptyAtLineEnd: true, isSelectionAllowed: true },
-    },
-    {
-      keys: "{N} {shift+motion}",
-      actions: [ActionMoveCursor.byMotions],
-      args: { noEmptyAtLineEnd: true, isSelectionAllowed: true },
     },
 
     // { keys: "ctrl+b", actions: [ActionPage.up] },

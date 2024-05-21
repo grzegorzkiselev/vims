@@ -3,11 +3,12 @@ import { ActionReveal } from "./Reveal";
 import { Motion } from "../Motions/Motion";
 import { UtilPosition } from "../Utils/Position";
 import { UtilSelection } from "../Utils/Selection";
+import { MotionParagraph } from "../Motions/Paragraph";
 
 export class ActionMoveCursor {
   private static preferredColumnBySelectionIndex: {
-        [i: number]: number;
-    } = [];
+    [i: number]: number;
+  } = [];
   private static isUpdatePreferredColumnBlocked = false;
   private static preferredColumnBlockTimer: NodeJS.Timeout | undefined;
 
@@ -75,10 +76,21 @@ export class ActionMoveCursor {
         ? UtilSelection.getActiveInVisualMode(selection)
         : selection.active;
 
+      let isMulticursor = false;
+      let isSelectionAllowed = false;
+
+      const isParagraph = (motion: Motion): motion is MotionParagraph => {
+        return "multicursor" in motion || "isSelectionAllowed" in motion;
+      };
+
       for (const motion of args.motions) {
         active = await motion.apply(active, {
           preferredColumn: ActionMoveCursor.preferredColumnBySelectionIndex[i],
         });
+        if (isParagraph(motion)) {
+          isMulticursor = motion.multicursor;
+          isSelectionAllowed = motion.isSelectionAllowed;
+        }
       }
 
       if (args.isVisualMode) {
@@ -97,12 +109,14 @@ export class ActionMoveCursor {
           anchor = anchor.translate(0, -1);
         } else if (
           active.isBefore(anchor) &&
-                    !selection.isReversed &&
-                    anchor.character < anchorLineLength
+          !selection.isReversed &&
+          anchor.character < anchorLineLength
         ) {
           anchor = anchor.translate(0, +1);
         }
-      } else if (args.isVisualLineMode || args.isSelectionAllowed) {
+
+        selections.push(new Selection(anchor, active));
+      } else if (args.isVisualLineMode || isSelectionAllowed) {
         anchor = selection.anchor;
 
         if (anchor.isBefore(active)) {
@@ -118,6 +132,13 @@ export class ActionMoveCursor {
           );
           active = active.with(undefined, 0);
         }
+
+        selections.push(new Selection(anchor, active));
+      } else if (isMulticursor) {
+        anchor = selection.anchor;
+
+        selections.push(new Selection(anchor, anchor));
+        selections.push(new Selection(active, active));
       } else {
         if (args.noEmptyAtLineEnd) {
           const lineEndCharacter = document.lineAt(active.line).text.length;
@@ -127,9 +148,9 @@ export class ActionMoveCursor {
         }
 
         anchor = active;
-      }
 
-      selections.push(new Selection(anchor, active));
+        selections.push(new Selection(anchor, active));
+      }
     }
 
     activeTextEditor.selections = selections;

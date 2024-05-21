@@ -12,72 +12,99 @@ enum Direction {
   PreviousIndentationLevelUp
 }
 
+type Args = {
+  direction: Direction,
+  n?: number,
+  isSelectionAllowed?: boolean,
+  multicursor?: boolean
+}
+
+type StaticArgs = Omit<Args, "direction">
+
 export class MotionParagraph extends Motion {
   private direction: Direction;
   private n: number;
+  readonly isSelectionAllowed: boolean;
+  readonly multicursor: boolean;
 
-  constructor(args: { direction: Direction; n?: number }) {
-    args.n = args.n === undefined ? 1 : args.n;
-
+  constructor({ direction, n = 1, isSelectionAllowed = false, multicursor = false }: Args) {
     super();
 
-    this.direction = args.direction;
-    this.n = args.n;
+    this.direction = direction;
+    this.n = n;
+    this.isSelectionAllowed = isSelectionAllowed;
+    this.multicursor = multicursor;
   }
 
-  static prev(args: { n?: number }): Motion {
+  static prev({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.Prev,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static prevWithIndentation(args: { n?: number }): Motion {
+  static prevWithIndentation({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.PrevWithSameIndentation,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static next(args: { n?: number }): Motion {
+  static next({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.Next,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static nextWithIndentation(args: { n?: number }): Motion {
+  static nextWithIndentation({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.NextWithSameIndentation,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static nextIndentationLevelDown(args: { n?: number }): Motion {
+  static nextIndentationLevelDown({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.NextIndentationLevelDown,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static nextIndentationLevelUp(args: { n?: number }): Motion {
+  static nextIndentationLevelUp({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.NextIndentationLevelUp,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static previousIndentationLevelUp(args: { n?: number }): Motion {
+  static previousIndentationLevelUp({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.PreviousIndentationLevelUp,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 
-  static previousIndentationLevelDown(args: { n?: number }): Motion {
+  static previousIndentationLevelDown({ n, isSelectionAllowed, multicursor }: StaticArgs): Motion {
     return new MotionParagraph({
       direction: Direction.PreviousIndentationLevelDown,
-      n: args.n,
+      n: n,
+      isSelectionAllowed: isSelectionAllowed,
+      multicursor: multicursor,
     });
   }
 

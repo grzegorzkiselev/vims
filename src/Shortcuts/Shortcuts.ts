@@ -430,134 +430,6 @@ export const vscodeCommands: {
   },
 },
 {
-  key: "ctrl+[Backspace]",
-  command: "vims.{",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+q");
-  },
-},
-{
-  key: "ctrl+shift+[Backspace]",
-  command: "vims.shift+{",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+q");
-  },
-},
-{
-  key: "ctrl+[Delete]",
-  command: "vims.}",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+Q");
-  },
-},
-{
-  key: "ctrl+shift+[Delete]",
-  command: "vims.shift+}",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+Q");
-  },
-},
-{
-  key: "cmd+ctrl+down",
-  command: "vims.nextWithSameIndent",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+»");
-  },
-},
-{
-  key: "cmd+ctrl+shift+down",
-  command: "vims.shift+nextWithSameIndent",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+»");
-  },
-},
-{
-  key: "cmd+ctrl+up",
-  command: "vims.previousWithSameIndent",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+«");
-  },
-},
-{
-  key: "cmd+ctrl+shift+up",
-  command: "vims.shift+previousWithSameIndent",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+«");
-  },
-},
-{
-  key: "ctrl+.",
-  command: "vims.nextIndentationLevelDown",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+“");
-  },
-},
-{
-  key: "ctrl+,",
-  command: "vims.previousIndentationLevelUp",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+„");
-  },
-},
-{
-  key: "ctrl+alt+,",
-  command: "vims.nextIndentationLevelUp",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+’");
-  },
-},
-{
-  key: "ctrl+alt+.",
-  command: "vims.previousIndentationLevelDown",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("safe+‘");
-  },
-},
-{
-  key: "ctrl+shift+.",
-  command: "vims.shift+nextIndentationLevelDown",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+“");
-  },
-},
-{
-  key: "ctrl+alt+shift+,",
-  command: "vims.shift+previousIndentationLevelUp",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+„");
-  },
-},
-{
-  key: "ctrl+alt+shift+.",
-  command: "vims.shift+previousIndentationLevelDown",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+‘");
-  },
-},
-{
-  key: "ctrl+shift+,",
-  command: "vims.shift+nextIndentationLevelUp",
-  when: "vims.isLoaded && editorTextFocus",
-  action() {
-    this._currentMode.input("shift+’");
-  },
-},
-{
   key: "delete",
   command: "vims.delete",
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
@@ -779,5 +651,214 @@ export const vscodeCommands: {
   when: "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'",
   action() {
     this._currentMode.input("9");
-  }
+  },
+},
+// Universal
+{
+  key: "ctrl+[Backspace]",
+  command: "vims.{",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*q");
+  },
+},
+{
+  key: "ctrl+shift+[Backspace]",
+  command: "vims.shift+{",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+q");
+  },
+},
+{
+  key: "ctrl+alt+[Backspace]",
+  command: "vims.alt+{",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+q");
+  },
+},
+{
+  key: "ctrl+[Delete]",
+  command: "vims.}",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*Q");
+  },
+},
+{
+  key: "ctrl+shift+[Delete]",
+  command: "vims.shift+}",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+Q");
+  },
+},
+{
+  key: "ctrl+alt+[Delete]",
+  command: "vims.alt+}",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+Q");
+  },
+},
+{
+  key: "cmd+ctrl+down",
+  command: "vims.universal.nextWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*»");
+  },
+},
+{
+  key: "cmd+ctrl+shift+down",
+  command: "vims.universal.shift+nextWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+»");
+  },
+},
+{
+  key: "cmd+ctrl+alt+down",
+  command: "vims.universal.alt+nextWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+»");
+  },
+},
+{
+  key: "cmd+ctrl+up",
+  command: "vims.universal.previousWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*«");
+  },
+},
+{
+  key: "cmd+ctrl+shift+up",
+  command: "vims.universal.shift+previousWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+«");
+  },
+},
+{
+  key: "cmd+ctrl+alt+up",
+  command: "vims.universal.alt+previousWithSameIndent",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+«");
+  },
+},
+{
+  key: "ctrl+.",
+  command: "vims.universal.nextIndentationLevelDown",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*“");
+  },
+},
+{
+  key: "ctrl+,",
+  command: "vims.universal.previousIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*„");
+  },
+},
+{
+  key: "ctrl+alt+,",
+  command: "vims.universal.nextIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*’");
+  },
+},
+{
+  key: "ctrl+cmd+.",
+  command: "vims.universal.previousIndentationLevelDown",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("*‘");
+  },
+},
+{
+  key: "ctrl+shift+.",
+  command: "vims.universal.shift+nextIndentationLevelDown",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+“");
+  },
+},
+{
+  key: "ctrl+alt+.",
+  command: "vims.universal.alt+nextIndentationLevelDown",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+“");
+  },
+},
+{
+  key: "ctrl+cmd+shift+,",
+  command: "vims.universal.shift+previousIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+„");
+  },
+},
+{
+  key: "ctrl+cmd+alt+,",
+  command: "vims.universal.alt+previousIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+„");
+  },
+},
+{
+  key: "ctrl+cmd+shift+,",
+  command: "vims.universal.shift+previousIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+„");
+  },
+},
+{
+  key: "ctrl+cmd+alt+,",
+  command: "vims.universal.shift+previousIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+„");
+  },
+},
+{
+  key: "ctrl+cmd+shift+.",
+  command: "vims.universal.shift+previousIndentationLevelDown",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+‘");
+  },
+},
+{
+  key: "ctrl+cmd+alt+.",
+  command: "vims.universal.alt+previousIndentationLevelDown",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+‘");
+  },
+},
+{
+  key: "ctrl+shift+,",
+  command: "vims.universal.shift+nextIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("shift+’");
+  },
+},
+{
+  key: "ctrl+alt+,",
+  command: "vims.universal.alt+nextIndentationLevelUp",
+  when: "vims.isLoaded && editorTextFocus",
+  action() {
+    this._currentMode.input("alt+’");
+  },
 }];
