@@ -1,6 +1,5 @@
 import { ActionBlockCursor } from "../Actions/BlockCursor";
 import { ActionCase } from "../Actions/Case";
-import { ActionCommandLine } from "../Actions/CommandLine";
 import { ActionDelete } from "../Actions/Delete";
 import { ActionFilter } from "../Actions/Filter";
 import { ActionFind } from "../Actions/Find";
@@ -378,7 +377,7 @@ export class ModeNormal extends Mode {
     // { keys: "z M", actions: [ActionFold.foldAll] },
     // { keys: "z R", actions: [ActionFold.unfoldAll] },
 
-    { keys: ":", actions: [ActionCommandLine.promptAndRun] },
+    // { keys: ":", actions: [ActionCommandLine.promptAndRun] },
 
     // { keys: ".", actions: [this.repeatRecordedCommandMaps.bind(this)] },
 
