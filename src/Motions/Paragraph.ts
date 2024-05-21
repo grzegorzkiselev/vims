@@ -163,7 +163,7 @@ export class MotionParagraph extends Motion {
     shouldSkip,
     conditionalI,
     stopCondition,
-    indexUpdater,
+    loopDirection,
     lineCondition,
     lineResolver,
   }) {
@@ -171,7 +171,7 @@ export class MotionParagraph extends Motion {
     let toCharacter;
     let toLine;
 
-    for (let i = conditionalI; stopCondition(i); indexUpdater === "inc" ? i++ : i--) {
+    for (let i = conditionalI; stopCondition(i); loopDirection === "down" ? i++ : i--) {
       const isAcceptableLine = lineCondition(document, i, currentIndentation);
 
       if (!isAcceptableLine
@@ -215,7 +215,7 @@ export class MotionParagraph extends Motion {
       toCharacter,
       shouldStop,
       stopCondition,
-      indexUpdater,
+      loopDirection,
       lineResolver,
       lineCondition;
 
@@ -251,7 +251,7 @@ export class MotionParagraph extends Motion {
       stopCondition = (i) => i >= 0;
       lineResolver = toStart;
       lineCondition = MotionParagraph.isLineEmpty;
-      indexUpdater = "dec";
+      loopDirection = "up";
     } else if (
       this.direction === Direction.Next
       || this.direction === Direction.NextWithSameIndentation
@@ -262,7 +262,7 @@ export class MotionParagraph extends Motion {
       stopCondition = (i) => i < document.lineCount;
       lineResolver = toEnd;
       lineCondition = MotionParagraph.isLineEmpty;
-      indexUpdater = "inc";
+      loopDirection = "down";
     }
 
     if (this.direction === Direction.PrevWithSameIndentation
@@ -296,7 +296,7 @@ export class MotionParagraph extends Motion {
       stopCondition,
       lineResolver,
       lineCondition,
-      indexUpdater
+      loopDirection
     };
   }
 
