@@ -15,7 +15,7 @@ interface MotionMap extends GenericMap {
 }
 
 export class SpecialKeyUniversalMotion extends GenericMapper implements SpecialKeyCommon {
-  indicator = "*{motion}";
+  indicator = "{*motion}";
 
   private conflictRegExp = /^[0]|\{char\}$/;
 

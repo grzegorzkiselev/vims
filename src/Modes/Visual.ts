@@ -39,12 +39,12 @@ export class ModeVisual extends Mode {
       args: { isVisualMode: true },
     },
     {
-      keys: "*{motion}",
+      keys: "{*motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualMode: true },
     },
     {
-      keys: "{N} *{motion}",
+      keys: "{N} {*motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { isVisualMode: true },
     },

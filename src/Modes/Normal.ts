@@ -38,12 +38,12 @@ export class ModeNormal extends Mode {
       args: { noEmptyAtLineEnd: true },
     },
     {
-      keys: "*{motion}",
+      keys: "{*motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { noEmptyAtLineEnd: true },
     },
     {
-      keys: "{N} *{motion}",
+      keys: "{N} {*motion}",
       actions: [ActionMoveCursor.byMotions],
       args: { noEmptyAtLineEnd: true },
     },
