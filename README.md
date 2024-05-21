@@ -1,4 +1,4 @@
-# vims for VS Code
+# VimS for VS Code
 
 ![icon](images/icon.png)
 
@@ -12,12 +12,33 @@ The [Vim](http://www.vim.org/) mode for [Visual Studio Code](https://code.visual
 - Multi-cursor support
 - Works with VS Code's default behaviors
 
-
 ## Not supported
 
-- `:` started commands: Only a few are supported now.
+- `:` started commands.
 - Visual Block mode: Please use multi-cursor instead for now.
-- Custom keybindings: On the roadmap.
+
+## Compability
+
+Works with VS Code keybindings, so:
+- commands works in any language layout
+- you can remap keys
+
+
+## Issues
+
+To disable annoying macOS “beep” on ctrl+cmd+arrow keybindings run this script:
+
+```bash
+echo "{"@^\UF700" = "noop:";"@^\UF701" = "noop:";"@^\UF702" = "noop:";"@^\UF703" = "noop:";"@~^\UF700" = "noop:";"@~^\UF701" = "noop:";"@~^\UF702" = "noop:";"@~^\UF703" = "noop:";}" > ~/Library/KeyBindings/DefaultKeyBinding.dict
+```
+
+See [this issue](https://github.com/microsoft/vscode/issues/44070) for more.
+
+
+## Features
+
+- Sofisticated motions by indentation levels, selection and multicursor modifiers works as expected.
+- Suggestions widget that shows relevant commands while you typing
 
 
 ## Commands
