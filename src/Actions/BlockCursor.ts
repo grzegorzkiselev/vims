@@ -1,6 +1,33 @@
-import { window, TextEditorCursorStyle } from "vscode";
+import { TextEditorCursorStyle, window } from "vscode";
+import { Configuration } from "../Configuration";
 
 export class ActionBlockCursor {
+
+  static getCursor = (cursor, activeTextEditor) => {
+    switch (cursor) {
+      case "block":
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.Block;
+        break;
+      case "line":
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.Line;
+        break;
+      case "underline":
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.Underline;
+        break;
+      case "line-thin":
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.LineThin;
+        break;
+      case "block-outline":
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.BlockOutline;
+        break;
+      case "underline-thin":
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.UnderlineThin;
+        break;
+      default:
+        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.Block;
+    }
+  };
+
   static on(): Thenable<boolean> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -10,7 +37,7 @@ export class ActionBlockCursor {
           return Promise.resolve(false);
         }
 
-        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.Block;
+        ActionBlockCursor.getCursor(Configuration.cursorStyle, activeTextEditor);
 
         resolve(true);
       }, 0);
@@ -26,7 +53,7 @@ export class ActionBlockCursor {
           return Promise.resolve(false);
         }
 
-        activeTextEditor.options.cursorStyle = TextEditorCursorStyle.Line;
+        ActionBlockCursor.getCursor(Configuration.userPrefferedCursorStyle, activeTextEditor);
 
         resolve(true);
       }, 0);

@@ -68,6 +68,11 @@
           "type": "boolean",
           "default": false,
           "description": "Show suggestions"
+        },
+        "vims.cursorStyle": {
+          "type": "string",
+          "default": "block",
+          "description": "Choose cursor style"
         }
       }
     },

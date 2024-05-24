@@ -32,6 +32,16 @@ export class Configuration {
     this._useQuickPick = value;
   }
 
+  private static _cursorStyle: string;
+  static get cursorStyle(): string {
+    return this._cursorStyle;
+  }
+
+  private static _userPrefferedCursorStyle: string;
+  static get userPrefferedCursorStyle(): string {
+    return this._userPrefferedCursorStyle;
+  }
+
   static toggleQuickPick = () => {
     this.extensionNamespace.update("useQuickPick", !this.useQuickPick, true);
   };
@@ -61,8 +71,12 @@ export class Configuration {
       "smartRelativeLineNumbers",
       false,
     );
+
     this._useSystemClipboard = this.getExtensionSetting<boolean>("useSystemClipboard", false);
     this._useQuickPick = this.getExtensionSetting<boolean>("useQuickPick", false);
+    this._cursorStyle = this.getExtensionSetting<string>("cursorStyle", "block");
+
+    this._userPrefferedCursorStyle = this.getEditorSetting<string>("cursorStyle", "line");
 
     UtilWord.updateCharacterKindCache(
       this.getEditorSetting<string>("wordSeparators", '`~!@#$%^&*()-=+[{]}\\|;:\'",.<>/?'),
