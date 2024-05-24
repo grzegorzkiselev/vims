@@ -75,7 +75,7 @@ export abstract class TextObject {
     if (this.isInclusive) {
       if (
         range.start.character === startLine.firstNonWhitespaceCharacterIndex &&
-                range.end.character === endLine.text.length
+        range.end.character === endLine.text.length
       ) {
         range = UtilRange.toLinewise(range, document);
         this._isLinewise = true;
@@ -83,7 +83,7 @@ export abstract class TextObject {
     } else {
       if (
         range.start.character === startLine.text.length &&
-                range.end.character === endLine.firstNonWhitespaceCharacterIndex
+        range.end.character === endLine.firstNonWhitespaceCharacterIndex
       ) {
         range = new Range(range.start.line + 1, 0, range.end.line, 0);
         this._isLinewise = true;
