@@ -29,7 +29,7 @@ Works with VS Code keybindings, so:
 To disable annoying macOS “beep” on ctrl+cmd+arrow keybindings run this script:
 
 ```bash
-echo "{"@^\UF700" = "noop:";"@^\UF701" = "noop:";"@^\UF702" = "noop:";"@^\UF703" = "noop:";"@~^\UF700" = "noop:";"@~^\UF701" = "noop:";"@~^\UF702" = "noop:";"@~^\UF703" = "noop:";}" > ~/Library/KeyBindings/DefaultKeyBinding.dict
+echo '{"@^\\UF700" = "noop:";"@^\\UF701" = "noop:";"@^\\UF702" = "noop:";"@^\\UF703" = "noop:";"@~^\\UF700" = "noop:";"@~^\\UF701" = "noop:";"@~^\\UF702" = "noop:";"@~^\\UF703" = "noop:";}' > ~/Library/KeyBindings/DefaultKeyBinding.dict
 ```
 
 See [this issue](https://github.com/microsoft/vscode/issues/44070) for more.
