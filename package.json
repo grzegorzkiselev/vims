@@ -439,11 +439,6 @@
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
       },
       {
-        "key": "backspace",
-        "command": "vims.backspace",
-        "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
-      },
-      {
         "key": "1",
         "command": "vims.1",
         "when": "vims.isLoaded && editorTextFocus && vims.mode != 'INSERT'"
@@ -554,21 +549,6 @@
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
-        "key": "ctrl+,",
-        "command": "vims.universal.previousIndentationLevelUp",
-        "when": "vims.isLoaded && editorTextFocus"
-      },
-      {
-        "key": "ctrl+alt+,",
-        "command": "vims.universal.nextIndentationLevelUp",
-        "when": "vims.isLoaded && editorTextFocus"
-      },
-      {
-        "key": "ctrl+cmd+.",
-        "command": "vims.universal.previousIndentationLevelDown",
-        "when": "vims.isLoaded && editorTextFocus"
-      },
-      {
         "key": "ctrl+shift+.",
         "command": "vims.universal.shift+nextIndentationLevelDown",
         "when": "vims.isLoaded && editorTextFocus"
@@ -579,23 +559,23 @@
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
-        "key": "ctrl+cmd+shift+,",
+        "key": "ctrl+,",
+        "command": "vims.universal.previousIndentationLevelUp",
+        "when": "vims.isLoaded && editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+,",
         "command": "vims.universal.shift+previousIndentationLevelUp",
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
-        "key": "ctrl+cmd+alt+,",
+        "key": "ctrl+alt+,",
         "command": "vims.universal.alt+previousIndentationLevelUp",
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
-        "key": "ctrl+cmd+shift+,",
-        "command": "vims.universal.shift+previousIndentationLevelUp",
-        "when": "vims.isLoaded && editorTextFocus"
-      },
-      {
-        "key": "ctrl+cmd+alt+,",
-        "command": "vims.universal.shift+previousIndentationLevelUp",
+        "key": "ctrl+cmd+.",
+        "command": "vims.universal.previousIndentationLevelDown",
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
@@ -609,12 +589,17 @@
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
-        "key": "ctrl+shift+,",
+        "key": "ctrl+cmd+,",
+        "command": "vims.universal.nextIndentationLevelUp",
+        "when": "vims.isLoaded && editorTextFocus"
+      },
+      {
+        "key": "ctrl+cmd+shift+,",
         "command": "vims.universal.shift+nextIndentationLevelUp",
         "when": "vims.isLoaded && editorTextFocus"
       },
       {
-        "key": "ctrl+alt+,",
+        "key": "ctrl+cmd+alt+,",
         "command": "vims.universal.alt+nextIndentationLevelUp",
         "when": "vims.isLoaded && editorTextFocus"
       }

@@ -1,3 +1,4 @@
+import { MotionIndentation } from "../../Motions/Indentation";
 import { MotionLine } from "../../Motions/Line";
 import { Motion } from "../../Motions/Motion";
 import { MotionParagraph } from "../../Motions/Paragraph";
@@ -23,38 +24,38 @@ export class SpecialKeyUniversalMotion extends GenericMapper implements SpecialK
     { keys: "*q", motionGenerators: [MotionParagraph.prev] },
     { keys: "*Q", motionGenerators: [MotionParagraph.next] },
 
-    { keys: "*«", motionGenerators: [MotionParagraph.prevWithIndentation, MotionLine.firstNonBlank] },
-    { keys: "*»", motionGenerators: [MotionParagraph.nextWithIndentation, MotionLine.firstNonBlank] },
+    { keys: "*«", motionGenerators: [MotionIndentation.previousWithSameIndentation, MotionLine.firstNonBlank] },
+    { keys: "*»", motionGenerators: [MotionIndentation.nextWithSameIndentation, MotionLine.firstNonBlank] },
 
-    { keys: "*“", motionGenerators: [MotionParagraph.nextIndentationLevelDown, MotionLine.firstNonBlank] },
-    { keys: "*„", motionGenerators: [MotionParagraph.previousIndentationLevelUp, MotionLine.firstNonBlank] },
+    { keys: "*“", motionGenerators: [MotionIndentation.nextIndentationLevelDown, MotionLine.firstNonBlank] },
+    { keys: "*„", motionGenerators: [MotionIndentation.previousIndentationLevelUp, MotionLine.firstNonBlank] },
 
-    { keys: "*‘", motionGenerators: [MotionParagraph.nextIndentationLevelUp, MotionLine.firstNonBlank] },
-    { keys: "*’", motionGenerators: [MotionParagraph.previousIndentationLevelDown, MotionLine.firstNonBlank] },
+    { keys: "*‘", motionGenerators: [MotionIndentation.nextIndentationLevelUp, MotionLine.firstNonBlank] },
+    { keys: "*’", motionGenerators: [MotionIndentation.previousIndentationLevelDown, MotionLine.firstNonBlank] },
 
-    { keys: "shift+q", motionGenerators: [MotionParagraph.prev], args: { isSelectionAllowed: true } },
-    { keys: "shift+Q", motionGenerators: [MotionParagraph.next], args: { isSelectionAllowed: true } },
+    { keys: "shift+q", motionGenerators: [MotionParagraph.prev], args: { isSelection: true } },
+    { keys: "shift+Q", motionGenerators: [MotionParagraph.next], args: { isSelection: true } },
 
-    { keys: "alt+q", motionGenerators: [MotionParagraph.prev], args: { multicursor: true } },
-    { keys: "alt+Q", motionGenerators: [MotionParagraph.next], args: { multicursor: true } },
+    { keys: "alt+q", motionGenerators: [MotionParagraph.prev], args: { isMulticursor: true } },
+    { keys: "alt+Q", motionGenerators: [MotionParagraph.next], args: { isMulticursor: true } },
 
-    { keys: "shift+«", motionGenerators: [MotionParagraph.prevWithIndentation, MotionLine.firstNonBlank], args: { isSelectionAllowed: true } },
-    { keys: "shift+»", motionGenerators: [MotionParagraph.nextWithIndentation, MotionLine.firstNonBlank], args: { isSelectionAllowed: true } },
+    { keys: "shift+«", motionGenerators: [MotionIndentation.previousWithSameIndentation, MotionLine.firstNonBlank], args: { isSelection: true } },
+    { keys: "shift+»", motionGenerators: [MotionIndentation.nextWithSameIndentation, MotionLine.firstNonBlank], args: { isSelection: true } },
 
-    { keys: "alt+«", motionGenerators: [MotionParagraph.prevWithIndentation, MotionLine.firstNonBlank], args: { multicursor: true } },
-    { keys: "alt+»", motionGenerators: [MotionParagraph.nextWithIndentation, MotionLine.firstNonBlank], args: { multicursor: true } },
+    { keys: "alt+«", motionGenerators: [MotionIndentation.previousWithSameIndentation, MotionLine.firstNonBlank], args: { isMulticursor: true } },
+    { keys: "alt+»", motionGenerators: [MotionIndentation.nextWithSameIndentation, MotionLine.firstNonBlank], args: { isMulticursor: true } },
 
-    { keys: "shift+“", motionGenerators: [MotionParagraph.nextIndentationLevelDown, MotionLine.firstNonBlank], args: { isSelectionAllowed: true } },
-    { keys: "shift+„", motionGenerators: [MotionParagraph.previousIndentationLevelUp, MotionLine.firstNonBlank], args: { isSelectionAllowed: true } },
+    { keys: "shift+“", motionGenerators: [MotionIndentation.nextIndentationLevelDown, MotionLine.firstNonBlank], args: { isSelection: true } },
+    { keys: "shift+„", motionGenerators: [MotionIndentation.previousIndentationLevelDown, MotionLine.firstNonBlank], args: { isSelection: true } },
 
-    { keys: "alt+“", motionGenerators: [MotionParagraph.nextIndentationLevelDown, MotionLine.firstNonBlank], args: { multicursor: true } },
-    { keys: "alt+„", motionGenerators: [MotionParagraph.previousIndentationLevelUp, MotionLine.firstNonBlank], args: { multicursor: true } },
+    { keys: "alt+“", motionGenerators: [MotionIndentation.nextIndentationLevelDown, MotionLine.firstNonBlank], args: { isMulticursor: true } },
+    { keys: "alt+„", motionGenerators: [MotionIndentation.previousIndentationLevelDown, MotionLine.firstNonBlank], args: { isMulticursor: true } },
 
-    { keys: "shift+‘", motionGenerators: [MotionParagraph.nextIndentationLevelUp, MotionLine.firstNonBlank], args: { isSelectionAllowed: true } },
-    { keys: "shift+’", motionGenerators: [MotionParagraph.previousIndentationLevelDown, MotionLine.firstNonBlank], args: { isSelectionAllowed: true } },
+    { keys: "shift+‘", motionGenerators: [MotionIndentation.nextIndentationLevelUp, MotionLine.firstNonBlank], args: { isSelection: true } },
+    { keys: "shift+’", motionGenerators: [MotionIndentation.previousIndentationLevelUp, MotionLine.firstNonBlank], args: { isSelection: true } },
 
-    { keys: "alt+‘", motionGenerators: [MotionParagraph.nextIndentationLevelUp, MotionLine.firstNonBlank], args: { multicursor: true } },
-    { keys: "alt+’", motionGenerators: [MotionParagraph.previousIndentationLevelDown, MotionLine.firstNonBlank], args: { multicursor: true } },
+    { keys: "alt+‘", motionGenerators: [MotionIndentation.nextIndentationLevelUp, MotionLine.firstNonBlank], args: { isMulticursor: true } },
+    { keys: "alt+’", motionGenerators: [MotionIndentation.previousIndentationLevelUp, MotionLine.firstNonBlank], args: { isMulticursor: true } },
   ];
 
   constructor() {

@@ -46,11 +46,11 @@ export class ActionMoveCursor {
     isVisualMode?: boolean;
     isVisualLineMode?: boolean;
     noEmptyAtLineEnd?: boolean;
-    isSelectionAllowed?: boolean
+    isSelection?: boolean
   }): Promise<boolean> {
     args.isVisualMode = args.isVisualMode === undefined ? false : args.isVisualMode;
     args.isVisualLineMode = args.isVisualLineMode === undefined ? false : args.isVisualLineMode;
-    args.isSelectionAllowed = args.isSelectionAllowed === undefined ? false : args.isSelectionAllowed;
+    args.isSelection = args.isSelection === undefined ? false : args.isSelection;
     args.noEmptyAtLineEnd = args.noEmptyAtLineEnd === undefined ? false : args.noEmptyAtLineEnd;
 
     const activeTextEditor = window.activeTextEditor;
@@ -77,10 +77,10 @@ export class ActionMoveCursor {
         : selection.active;
 
       let isMulticursor = false;
-      let isSelectionAllowed = false;
+      let isSelection = false;
 
       const isParagraph = (motion: Motion): motion is MotionParagraph => {
-        return "multicursor" in motion || "isSelectionAllowed" in motion;
+        return "isMulticursor" in motion || "isSelection" in motion;
       };
 
       for (const motion of args.motions) {
@@ -88,8 +88,8 @@ export class ActionMoveCursor {
           preferredColumn: ActionMoveCursor.preferredColumnBySelectionIndex[i],
         });
         if (isParagraph(motion)) {
-          isMulticursor = motion.multicursor;
-          isSelectionAllowed = motion.isSelectionAllowed;
+          isMulticursor = motion.isMulticursor;
+          isSelection = motion.isSelection;
         }
       }
 
@@ -116,7 +116,7 @@ export class ActionMoveCursor {
         }
 
         selections.push(new Selection(anchor, active));
-      } else if (args.isVisualLineMode || isSelectionAllowed) {
+      } else if (args.isVisualLineMode || isSelection) {
         anchor = selection.anchor;
 
         if (anchor.isBefore(active)) {

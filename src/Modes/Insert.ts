@@ -68,7 +68,7 @@ export class ModeInsert extends Mode {
     {
       keys: "{*motion}",
       actions: [ActionMoveCursor.byMotions],
-      args: { noEmptyAtLineEnd: true, isSelectionAllowed: true },
+      args: { noEmptyAtLineEnd: true, isSelection: true },
     },
   ];
 
